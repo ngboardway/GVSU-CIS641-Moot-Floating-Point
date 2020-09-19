@@ -5,7 +5,7 @@ Project description (~1 paragraph)
 ## Team Members and Roles
 
 * Natalie Boardway (ROLE TBD)
-* Member 2 (Role 3, Role 4)
+* Jon Griesen (ROLE TBD)
 * Member 3 (Role 5, Role 6)
 
 ## Prerequisites

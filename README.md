@@ -6,7 +6,7 @@ Project description (~1 paragraph)
 
 * Natalie Boardway (ROLE TBD)
 * Jon Griesen (ROLE TBD)
-* Nick Reitz (ROLE TBD)
+* [Nick Reitz](https://github.com/Reitzn/CIS641-HW2-Reitz) (ROLE TBD)
 
 ## Prerequisites
 

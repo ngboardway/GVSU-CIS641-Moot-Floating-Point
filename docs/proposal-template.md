@@ -15,7 +15,10 @@ Points accumulate toward a total score for each space the character occupies, fo
 
 # Anticipated Technologies
 
-(What technologies are needed to build this project)
+In order to complete this project, there are a few technologies that we will need in order to be successful. The game will be programed in Java and utilize object-oriented concepts in order to model the NPC's and player. The code will need to consist of a classes that will control how the NPC's move and refreshing the objects on the screen. In order to learn proper ways to do this we will be utilizing GitHub and online forms for proper game development examples and tutorials. We will also be utilizing Git for source control and host our code repository. 
+
+We anticipate on having to utilize photo editing software like photoshop in order to develop our graphics. We will also need to use an audio editing software to work on the audio that will be placed in the game.
+
 
 # Method/Approach
 

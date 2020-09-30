@@ -22,8 +22,15 @@ We anticipate on having to utilize photo editing software like photoshop in orde
 
 # Method/Approach
 
-(What is your estimated "plan of attack" for developing this project)
+Depending on what comes to light throughout class in the coming weeks, the following is our intended course of action.
 
+We want to start by reviewing tutorials for java games, specifically pacman. This will help inform our requirements gathering as we see how those who came before have approached development of this type of game.
+
+The initial work- establishing the maps, collision detection and the ability to move- will all be done as a group. 
+
+Once the foundation is in place, we will split into pairs to complete the remainder of the development work. 
+
+Any investigations into enhancements such as audio/graphics will be completed as individual spikes.
 
 # Estimated Timeline
 
@@ -38,6 +45,8 @@ We anticipate on having to utilize photo editing software like photoshop in orde
 3. Supplemental software needs (Sprite graphics, game audio effects)
    * Graphics (paint.net, GIMP, Photoshop)
    * Audio (StudioOne, GarageBand) - Consider availability of public domain game music
+
+4. Review tutorials to establish plan for implementation 
 
 END OF PHASE (10/13/20): Initial research completed, desired scope of game determined, necessary Java technologies determined, supplemental technologies and resources determined.
 

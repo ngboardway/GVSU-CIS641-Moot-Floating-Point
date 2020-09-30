@@ -1,6 +1,6 @@
-Team name:
+Team name: Moot Floating Point
 
-Team members:
+Team members: Natalie Boardway, Jon Griesen, Nick Reitz, Nate Stern
 
 # Introduction
 
@@ -15,15 +15,62 @@ Points accumulate toward a total score for each space the character occupies, fo
 
 # Anticipated Technologies
 
-(What technologies are needed to build this project)
+In order to complete this project, there are a few technologies that we will need in order to be successful. The game will be programed in Java and utilize object-oriented concepts in order to model the NPC's and player. The code will need to consist of a classes that will control how the NPC's move and refreshing the objects on the screen. In order to learn proper ways to do this we will be utilizing GitHub and online forms for proper game development examples and tutorials. We will also be utilizing Git for source control and host our code repository. 
+
+We anticipate on having to utilize photo editing software like photoshop in order to develop our graphics. We will also need to use an audio editing software to work on the audio that will be placed in the game.
+
 
 # Method/Approach
 
 (What is your estimated "plan of attack" for developing this project)
 
+
 # Estimated Timeline
 
-(Figure out what your major milestones for this project will be, including how long you anticipate it *may* take to reach that point)
+11 WEEKS TOTAL (9/29/20 – 12/15/20) – Project Presentations on 12/16/20
+
+**Phase One – Requirements Gathering (2 Weeks)**
+
+1. Flesh out desired scope of game (similarity to real Pac Man; features to add/remove)
+
+2. Java related software needs (libraries, development frameworks)
+
+3. Supplemental software needs (Sprite graphics, game audio effects)
+   * Graphics (paint.net, GIMP, Photoshop)
+   * Audio (StudioOne, GarageBand) - Consider availability of public domain game music
+
+END OF PHASE (10/13/20): Initial research completed, desired scope of game determined, necessary Java technologies determined, supplemental technologies and resources determined.
+
+**Phase Two – Implementation (5 Weeks)**
+
+1. Java GUI window created, player actor exists, can move around square map in four cardinal directions
+
+2. Traditional PacMan style map created, collision detection implemented for player actor, movement restricted to available hallways on map
+
+3. Creation of collectable objects in appropriate map locations (small dots, large dots, fruit)
+
+4. Enemy actors created, semi-random pathing around map, player death mechanic
+
+5. “Attack mode” mechanics, where player actor can go on offensive and eat enemy actors. Likely some overlap with step 3 (large dots serve as consumable “trigger” for attack mode)
+
+END OF PHASE (11/17/20): Working product exists with majority of base mechanics implemented. (Not polished, but mostly functional)
+
+**Phase Three – Refinement (4 Weeks)**
+
+1. Sprite integration (map, player, enemies, collectables). Note that the development of basic sprites will need to coincide with phase two for implementation of game code
+
+2. Audio integration (themes, player actors, enemy actors, collectables, etc.)
+
+3. Multiple levels / adjustable difficulty setting
+
+4. Player score tracking & leaderboard
+
+5. Title screen
+
+* Phase Three is still very tentative. Adjustments will follow upon completion of requirements gathering process in Phase One.
+
+END OF PHASE (12/15/20): Fully functional and polished final product that is suitable for hand in.
+
 
 # Anticipated Problems
 

@@ -52,15 +52,15 @@ END OF PHASE (10/13/20): Initial research completed, desired scope of game deter
 
 **Phase Two – Implementation (5 Weeks)**
 
-1. Java GUI window created, player actor exists, can move around square map in four cardinal directions
+1. Java GUI window created, player Actor exists, can move around square map in four cardinal directions
 
-2. Traditional PacMan style map created, collision detection implemented for player actor, movement restricted to available hallways on map
+2. Traditional PacMan style map created, collision detection implemented for player Actor, movement restricted to available hallways on map
 
-3. Creation of collectable objects in appropriate map locations (small dots, large dots, fruit)
+3. Creation of Collectable objects in appropriate map locations (small dots, large dots, fruit)
 
 4. Enemy actors created, semi-random pathing around map, player death mechanic
 
-5. “Attack mode” mechanics, where player actor can go on offensive and eat enemy actors. Likely some overlap with step 3 (large dots serve as consumable “trigger” for attack mode)
+5. “Attack mode” mechanics, where player Actor can go on offensive and eat enemy actors. Likely some overlap with step 3 (large dots serve as consumable “trigger” for attack mode)
 
 END OF PHASE (11/17/20): Working product exists with majority of base mechanics implemented. (Not polished, but mostly functional)
 

@@ -1,0 +1,33 @@
+# 10-17-20 & 10-20-20 Meetings
+
+## Meeting minutes
+
+Team Name: Moot Floating Point
+
+Members present: Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+
+Date: 10/17/20 & 10-20-20
+
+Time: 08:00 PM
+
+Discussion points:
+
+* Graphics2D seems much simpler than other approaches to building
+* Need to set java classes up so that it is Model-View-Controller
+* Class breakdown structure
+* Starting implementation (actual coding) as a group
+   - Menu Screen with buttons
+   - Keyboard interface
+* Pushed work done so far to git repo
+* Midterm project deliverables
+   - High-level project description: Natalie
+   - Proposed timeline from earlier can be used as a basis for visualized tracking: Jon
+      - Converting what we have and updating it based on what we have done
+      - Tentatively planning on a Gantt chart
+   - Diagram updating / fixing for presentation: Nate
+   - Demo of game: Nick
+
+Goals for next week (include responsibilities)
+
+* Continue work on presentation materials / slides
+* Continue working on implementation of game

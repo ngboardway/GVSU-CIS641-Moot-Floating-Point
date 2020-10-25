@@ -14,7 +14,7 @@ public class PacMeme extends JFrame {
     public PacMeme(){
         super("Pac-Meme");
         add(new PacMemePanel());
-        setSize(800,800);
+        setSize(900,900);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

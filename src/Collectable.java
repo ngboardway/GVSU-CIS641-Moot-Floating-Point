@@ -4,13 +4,28 @@ public class Collectable {
   private int pointValue;
   private boolean isVisible;
 
-  public Collectable() {
+  public int getXLocation() {
+    return xLocation;
   }
 
-  public Collectable(int xLocation, int yLocation, int pointValue) {
-    this.xLocation = xLocation;
-    this.yLocation = yLocation;
-    this.pointValue = pointValue;
+  public void setXLocation(int xLoc) {
+    xLocation = xLoc;
+  }
+
+  public int getYLocation() {
+    return yLocation;
+  }
+
+  public void setYLocation(int yLoc) {
+    yLocation = yLoc;
+  }
+
+  public int getPointValue() {
+    return pointValue;
+  }
+
+  public boolean getVisibility() {
+    return isVisible;
   }
 
   public void setVisibility(boolean isVisible) {

@@ -1,23 +1,23 @@
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class PacMemePanel extends JPanel {
+import javax.swing.JPanel;
 
-	JButton start;
-	JButton highScore;
-	JPanel navBarPanel;
+public class PacMemePanel extends JPanel implements NameTBD {
 
-	ButtonListener listener;
+	NavBarPanel navBarPanel;
 	ScoreBoard scoreBoard;
 
 	// global var for moving the character.
 	int packMemeSpeedX;
 	int packMemeSpeedY;
+
+	GridBagConstraints c = new GridBagConstraints();
 
 	/**
 	 * Constructor class.
@@ -27,6 +27,7 @@ public class PacMemePanel extends JPanel {
 		packMemeSpeedY = 0;
 
 		showTitleScreen();
+		setLayout(new GridBagLayout());
 	}
 
 	@Override
@@ -43,7 +44,6 @@ public class PacMemePanel extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, 900, 900);
-
 	}
 
 	/**
@@ -51,20 +51,12 @@ public class PacMemePanel extends JPanel {
 	 * select an option.
 	 */
 	public void showTitleScreen() {
+		navBarPanel = new NavBarPanel(this);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.PAGE_START;
 
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		listener = new ButtonListener();
-		start = new JButton("Start Game");
-		start.addActionListener(listener);
-
-		highScore = new JButton("View High Scores");
-		highScore.addActionListener(listener);
-
-		navBarPanel = new JPanel();
-		navBarPanel.add(start);
-        navBarPanel.add(highScore);
-        
-		add(navBarPanel);
+		add(navBarPanel, c);
 	}
 
 	/**
@@ -79,25 +71,24 @@ public class PacMemePanel extends JPanel {
 	 * Method to move the user from the current screen to the high scores screen.
 	 * The high scores will be imported from a text document.
 	 */
-	public void toggleHighScores() {
+	public boolean toggleHighScores() {
+		boolean isShowingScores = true;
 		if (this.scoreBoard == null) {
 			scoreBoard = new ScoreBoard();
-			add(scoreBoard);
-			highScore.setText("Back");
-			start.setVisible(false);
+			c.gridx = 0;
+			c.gridy = 1;
+			c.anchor = GridBagConstraints.CENTER;
+			add(scoreBoard, c);
 		} else if (!this.scoreBoard.isVisible()) {
 			this.scoreBoard.setVisible(true);
-			highScore.setText("Back");
-			start.setVisible(false);
 		} else {
 			this.scoreBoard.setVisible(false);
-			highScore.setText("View High Scores");
-			start.setVisible(true);
+			isShowingScores = false;
 		}
 
 		revalidate();
+		return isShowingScores;
 	}
-
 
 	/**
 	 *
@@ -106,6 +97,7 @@ public class PacMemePanel extends JPanel {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+
 			int keyPress = e.getKeyCode();
 			if (keyPress == KeyEvent.VK_LEFT) {
 				packMemeSpeedX = -1;
@@ -119,17 +111,4 @@ public class PacMemePanel extends JPanel {
 		}
 	}
 
-	/**
-	 *
-	 */
-	class ButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			if (event.getSource() == start) {
-				startGame();
-			}
-			if (event.getSource() == highScore) {
-				toggleHighScores();
-			}
-		}
-	}
 }

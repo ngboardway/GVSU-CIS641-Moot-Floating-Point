@@ -7,7 +7,9 @@ public class PacMeme extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new PacMeme().setVisible(true);
+                //new PacMeme().setVisible(true);
+                var ex = new PacMeme();
+                ex.setVisible(true);
             }
         });
     }

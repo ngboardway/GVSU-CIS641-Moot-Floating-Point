@@ -9,11 +9,21 @@ public class PacMemePanel extends JPanel {
     JButton start;
     JButton highScore;
 
+    private Image ii;
+
+    Boolean gameStart;
+
     ButtonListener listener;
+
+    Image link;
+
+    int testNumber = 0;
 
     //global var for moving the charicter.
     int packMemeSpeedX;
     int packMemeSpeedY;
+    int packMemeLoactionX;
+    int packMemeLocationY;
 
     /**
      * Constructor class.
@@ -22,23 +32,52 @@ public class PacMemePanel extends JPanel {
         packMemeSpeedX = 0;
         packMemeSpeedY = 0;
 
+        gameStart = false;
+
+        packMemeLoactionX = 5;
+        packMemeLocationY = 5;
+
+        bufferImages();
+
         showTitleScreen();
     }
+    private void bufferImages(){
+        link = new ImageIcon("images/link.png").getImage();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        startDrawing(g);
+        System.out.println(++testNumber);
+        doDrawing(g);
     }
 
     /**
      *
      * @param g
      */
-    public void startDrawing(Graphics g){
+    public void doDrawing(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.black);
+        //g2d.setColor(Color.black);
         g2d.fillRect(0, 0, 800, 800);
 
+        if(gameStart){
+            moveMememan();
+            drawMememan(g2d);
+        }else{
+
+        }
+        //g2d.drawImage(ii, 5, 5, this);
+        Toolkit.getDefaultToolkit().sync();
+        g2d.dispose();
+    }
+
+    private void drawMememan(Graphics2D g2d){
+        g2d.drawImage(link, 0, 0, this);
+    }
+    private void moveMememan(){
+        packMemeLoactionX = packMemeLoactionX + packMemeSpeedX;
+        packMemeLocationY = packMemeLocationY + packMemeSpeedY;
     }
 
     /**
@@ -63,6 +102,10 @@ public class PacMemePanel extends JPanel {
      */
     public void startGame(){
         addKeyListener(new Keyboard());
+        removeAll();
+        revalidate();
+        repaint();
+        gameStart = true;
     }
 
     /**
@@ -90,6 +133,15 @@ public class PacMemePanel extends JPanel {
                 packMemeSpeedY = 1;
             } else if (keyPress == KeyEvent.VK_DOWN) {
                 packMemeSpeedY = -1;
+            }
+        }
+        public void keyReleased(KeyEvent e) {
+
+            int keyPress = e.getKeyCode();
+            if (keyPress == Event.LEFT || keyPress == Event.RIGHT
+                    || keyPress == Event.UP || keyPress == Event.DOWN){
+                packMemeSpeedX = 0;
+                packMemeSpeedY = 0;
             }
         }
     }

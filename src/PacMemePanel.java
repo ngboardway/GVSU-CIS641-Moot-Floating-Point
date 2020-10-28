@@ -73,7 +73,7 @@ public class PacMemePanel extends JPanel {
     }
 
     private void drawMememan(Graphics2D g2d){
-        g2d.drawImage(link, 220, 220, this);
+        g2d.drawImage(link, 230, 230, this);
     }
     private void moveMememan(){
         packMemeLoactionX = packMemeLoactionX + packMemeSpeedX;

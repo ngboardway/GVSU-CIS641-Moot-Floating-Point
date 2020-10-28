@@ -58,8 +58,8 @@ public class PacMemePanel extends JPanel {
      */
     public void doDrawing(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        //g2d.setColor(Color.black);
-        g2d.fillRect(0, 0, 800, 800);
+        g2d.setColor(Color.white);
+        g2d.fillRect(0, 0, 500, 500);
 
         if(gameStart){
             moveMememan();
@@ -73,7 +73,7 @@ public class PacMemePanel extends JPanel {
     }
 
     private void drawMememan(Graphics2D g2d){
-        g2d.drawImage(link, 0, 0, this);
+        g2d.drawImage(link, 220, 220, this);
     }
     private void moveMememan(){
         packMemeLoactionX = packMemeLoactionX + packMemeSpeedX;

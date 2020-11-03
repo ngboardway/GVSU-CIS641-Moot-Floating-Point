@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -24,11 +25,13 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     private MemeMan memeMan;
 
+    // make this an ?array list? when we add multiple ghosts.
+    private Ghost ghost;
+
     /**
      * Constructor class.
      */
     public PacMemeBoard () {
-        memeMan = new MemeMan();
         initVariables();
         initBoard();
     }
@@ -37,6 +40,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Sets the variables we will be using in the game.
      */
     private void initVariables() {
+
+        memeMan = new MemeMan();
+        ghost = new Ghost();
 
         score = 0;
 
@@ -113,6 +119,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         } else {
             memeMan.moveMemeMan();
             drawMemeMan(g2d);
+            drawGhost(g2d);
             //move ghosts, draw ghosts, check the maze for death.
         }
 
@@ -128,6 +135,11 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     }
 
+    private void drawGhost (Graphics2D g2d) {
+
+        g2d.drawImage(ghost.getGhost(), ghost.getGhostLocation_X(), ghost.getGhostLocation_Y(), this);
+
+    }
     /**
      * Draws the score on the Graphics 2D board, we can also draw the remaining Meme-Ghosts
      * in this method

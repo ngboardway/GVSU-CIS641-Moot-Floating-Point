@@ -1,4 +1,4 @@
-public class Actor {
+public class  Actor {
 
     protected Actor(){
 

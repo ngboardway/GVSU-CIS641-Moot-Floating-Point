@@ -1,13 +1,21 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Ghost extends Actor {
 
-    protected Ghost() {
+    Image ghost;
 
+    protected Ghost() {
+        bufferImages();
     }
 
-    public ImageIcon ghostIcon() {
-        ImageIcon ghost = new ImageIcon(getClass().getResource("images/***.png"));
+    public void bufferImages () {
+        ghost = new ImageIcon("images/ghost.png").getImage();
+        // Where we would want to load all of the sprite images
+    }
+
+    public Image getGhostIcon() {
+
         return ghost;
     }
 }

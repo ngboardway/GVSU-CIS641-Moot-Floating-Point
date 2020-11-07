@@ -9,14 +9,10 @@ public class MemeMan {
     private int memeManSpeed_X, memeManSpeed_Y;
 
 
-    protected MemeMan() {
+    protected MemeMan(int x, int y) {
         bufferImages();
-        initVariables();
-    }
-
-    private void initVariables() {
-        memeManLocation_X = 250;
-        memeManLocation_Y = 250;
+        memeManLocation_X = x;
+        memeManLocation_Y = y;
     }
 
     private void bufferImages () {
@@ -29,8 +25,6 @@ public class MemeMan {
 
     }
 
-
-
     public void moveMemeMan() {
         memeManLocation_X += memeManSpeed_X;
         memeManLocation_Y += memeManSpeed_Y;
@@ -40,8 +34,6 @@ public class MemeMan {
         memeManSpeed_X = X;
         memeManSpeed_Y = Y;
     }
-
-
 
     public Image getMemeMan() {
         return memeMan;

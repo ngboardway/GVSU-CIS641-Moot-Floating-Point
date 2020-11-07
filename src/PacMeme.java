@@ -14,7 +14,7 @@ public class PacMeme extends JFrame {
 
         setTitle("Pac-Meme");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(800, 800);
         setLocationRelativeTo(null);
     }
 
@@ -26,6 +26,5 @@ public class PacMeme extends JFrame {
             ex.setVisible(true);
         });
     }
-
 
 }

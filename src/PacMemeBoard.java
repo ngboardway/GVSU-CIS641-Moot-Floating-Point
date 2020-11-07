@@ -16,16 +16,16 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     private boolean dead = false;
 
     private Timer timer;
-    
+
     private PacMemeGame pacMemeGame;
-    
+
     /**
      * Constructor class.
      */
     public PacMemeBoard() {
         initVariables();
         initBoard();
-    }   
+    }
 
     /**
      * Sets the variables we will be using in the game.
@@ -60,7 +60,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g
      */
     private void doDrawing(Graphics g) {
-
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setColor(Color.white);
@@ -78,11 +77,14 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
     }
-    
+
     private void drawBoard(Graphics2D g2d) {
-    	drawDots(g2d);
-    	drawWalls(g2d);
-    	drawMemeMan(g2d);
+        drawDots(g2d);
+        drawWalls(g2d);
+        drawMemeMan(g2d);
+        drawGhosts(g2d);
+        drawFruit(g2d);
+        drawPowerUps(g2d);
     }
 
     /**
@@ -91,17 +93,14 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d
      */
     private void playGame(Graphics2D g2d) {
-
         if (dead) {
-
+            // ded
         } else {
-        	pacMemeGame.getMemeMan().moveMemeMan();
-        	drawBoard(g2d);
-        	
-            //move ghosts, draw ghosts, check the maze for death.
-        	
-        }
+            pacMemeGame.getMemeMan().moveMemeMan();
+            drawBoard(g2d);
 
+            //move ghosts, draw ghosts, check the maze for death.
+        }
     }
 
     /**
@@ -110,48 +109,49 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d
      */
     private void drawMemeMan(Graphics2D g2d) {
-    	MemeMan memeMan = pacMemeGame.getMemeMan();
-    	g2d.drawImage(memeMan.getMemeMan(), memeMan.getMemeMan_X(), memeMan.getMemeMan_Y(), this);
+        MemeMan memeMan = pacMemeGame.getMemeMan();
+        g2d.drawImage(memeMan.getMemeMan(), memeMan.getMemeMan_X(), memeMan.getMemeMan_Y(), this);
     }
 
-    private void drawGhost(Graphics2D g2d) {
-//        g2d.drawImage(ghost.getGhost(), ghost.getGhostLocation_X(), ghost.getGhostLocation_Y(), this);
+    private void drawGhosts(Graphics2D g2d) {
+        for (Ghost ghost : pacMemeGame.getGhosts()) {
+            g2d.drawImage(ghost.getGhost(), ghost.getGhostLocation_X(), ghost.getGhostLocation_Y(), this);
+        }
     }
 
     private void drawDots(Graphics2D g2d) {
         for (Dot dot : pacMemeGame.getDots()) {
-        	g2d.drawImage(dot.getImage(), dot.getX(), dot.getY(), this);	
+            g2d.drawImage(dot.getImage(), dot.getX(), dot.getY(), this);
         }
-    	
-//        Image dot = new ImageIcon("images/dot.png").getImage();
-//    	g2d.drawImage(dot, x, y, this);
     }
 
     private void drawFruit(Graphics2D g2d) {
-//        g2d.drawImage(fruit.getImage(), fruit.getX(), fruit.getY(), this);
+        for (Fruit fruit : pacMemeGame.getFruit()) {
+            g2d.drawImage(fruit.getImage(), fruit.getX(), fruit.getY(), this);
+        }
     }
 
-    private void drawPowerUp(Graphics2D g2d) {
-//        g2d.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY(), this);
+    private void drawPowerUps(Graphics2D g2d) {
+        for (PowerUp powerUp : pacMemeGame.getPowerUps()) {
+            g2d.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY(), this);
+        }
     }
 
     private void drawWalls(Graphics2D g2d) {
         for (Wall wall : pacMemeGame.getWalls()) {
-        	g2d.drawImage(wall.getWall(), wall.getWallLocation_X(), wall.getWallLocation_Y(), this);
+            g2d.drawImage(wall.getWall(), wall.getWallLocation_X(), wall.getWallLocation_Y(), this);
         }
     }
 
     /**
-     * Draws the score on the Graphics 2D board, we can also draw the remaining Meme-Ghosts
+     * Draws the score on the Graphics 2D board
      * in this method
      *
      * @param g2d
      */
     private void drawScore(Graphics2D g2d) {
-
         g2d.setColor(Color.black);
         g2d.drawString("Score:      " + pacMemeGame.getScore(), 20, 20);
-
     }
 
     private void showMainMenu(Graphics2D g2d) {
@@ -178,11 +178,11 @@ public class PacMemeBoard extends JPanel implements ActionListener {
                 if (key == KeyEvent.VK_LEFT) {
                     pacMemeGame.getMemeMan().setMemeManSpeed(-3, 0);
                 } else if (key == KeyEvent.VK_RIGHT) {
-                	pacMemeGame.getMemeMan().setMemeManSpeed(3, 0);
+                    pacMemeGame.getMemeMan().setMemeManSpeed(3, 0);
                 } else if (key == KeyEvent.VK_UP) {
-                	pacMemeGame.getMemeMan().setMemeManSpeed(0, -3);
+                    pacMemeGame.getMemeMan().setMemeManSpeed(0, -3);
                 } else if (key == KeyEvent.VK_DOWN) {
-                	pacMemeGame.getMemeMan().setMemeManSpeed(0, 3);
+                    pacMemeGame.getMemeMan().setMemeManSpeed(0, 3);
                 } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
                     inGame = false;
                 } else if (key == KeyEvent.VK_PAUSE) {

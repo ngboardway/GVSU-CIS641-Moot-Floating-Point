@@ -27,8 +27,7 @@ public class PacMemeGame {
     }
 
     public void initVariables() {
-
-        score = 650;
+        score = 0;
 
         // populating game board
         gameBoard = new int[][]{

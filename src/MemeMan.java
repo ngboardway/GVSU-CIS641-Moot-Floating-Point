@@ -8,11 +8,14 @@ public class MemeMan {
     private int memeManLocation_X, memeManLocation_Y;
     private int memeManSpeed_X, memeManSpeed_Y;
 
+    private boolean isValidMove;
+
 
     protected MemeMan(int x, int y) {
         bufferImages();
         memeManLocation_X = x;
         memeManLocation_Y = y;
+        isValidMove = true;
     }
 
     private void bufferImages () {
@@ -26,13 +29,19 @@ public class MemeMan {
     }
 
     public void moveMemeMan() {
-        memeManLocation_X += memeManSpeed_X;
-        memeManLocation_Y += memeManSpeed_Y;
+
+        if (isValidMove) {
+            memeManLocation_X += memeManSpeed_X;
+            memeManLocation_Y += memeManSpeed_Y;
+        }
     }
 
     public void setMemeManSpeed(int X, int Y) {
         memeManSpeed_X = X;
         memeManSpeed_Y = Y;
+    }
+    public void setValidMove(boolean isValidMove){
+        this.isValidMove = isValidMove;
     }
 
     public Image getMemeMan() {
@@ -43,6 +52,9 @@ public class MemeMan {
     }
     public int getMemeMan_Y() {
         return memeManLocation_Y;
+    }
+    public Rectangle getBounds() {
+        return new Rectangle(memeManLocation_X, memeManLocation_Y, memeMan.getWidth(null), memeMan.getHeight(null));
     }
 
 }

@@ -27,5 +27,8 @@ public class Wall {
     public int getWallLocation_Y() {
         return wallLocation_Y;
     }
+    public Rectangle getBounds() {
+        return new Rectangle(wallLocation_X, wallLocation_Y, wall.getWidth(null), wall.getHeight(null));
+    }
 	
 }

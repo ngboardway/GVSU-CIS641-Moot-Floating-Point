@@ -32,7 +32,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      */
     private void initVariables() {
         pacMemeGame = new PacMemeGame();
-        dimension = new Dimension(500, 500);
+        dimension = new Dimension(766, 820);
         timer = new Timer(40, this);
         timer.start();
     }
@@ -66,7 +66,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.fillRect(0, 0, dimension.width, dimension.height);
 
         if (inGame) {
-//            drawScore(g2d);
 //            doAnim(); -> this will update the PacMeme sprite once we have that set up
             playGame(g2d);
         } else {
@@ -85,6 +84,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         drawGhosts(g2d);
         drawFruit(g2d);
         drawPowerUps(g2d);
+        drawScore(g2d);
     }
 
     /**
@@ -98,6 +98,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         } else {
             pacMemeGame.getMemeMan().moveMemeMan();
             drawBoard(g2d);
+            pacMemeGame.collisionDetections();
 
             //move ghosts, draw ghosts, check the maze for death.
         }
@@ -115,13 +116,17 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     private void drawGhosts(Graphics2D g2d) {
         for (Ghost ghost : pacMemeGame.getGhosts()) {
-            g2d.drawImage(ghost.getGhost(), ghost.getGhostLocation_X(), ghost.getGhostLocation_Y(), this);
+            if (ghost.getVisibility()) {
+                g2d.drawImage(ghost.getGhost(), ghost.getGhostLocation_X(), ghost.getGhostLocation_Y(), this);
+            }
         }
     }
 
     private void drawDots(Graphics2D g2d) {
         for (Dot dot : pacMemeGame.getDots()) {
-            g2d.drawImage(dot.getImage(), dot.getX(), dot.getY(), this);
+            if (dot.isVisible()) {
+                g2d.drawImage(dot.getImage(), dot.getX(), dot.getY(), this);
+            }
         }
     }
 
@@ -150,8 +155,10 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d
      */
     private void drawScore(Graphics2D g2d) {
+        Font small = new Font("Helvetica", Font.BOLD, 14);
         g2d.setColor(Color.black);
-        g2d.drawString("Score:      " + pacMemeGame.getScore(), 20, 20);
+        g2d.setFont(small);
+        g2d.drawString("Score:      " + pacMemeGame.getScore(), 10, 770);
     }
 
     private void showMainMenu(Graphics2D g2d) {

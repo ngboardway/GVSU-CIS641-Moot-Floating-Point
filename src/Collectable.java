@@ -12,6 +12,7 @@ public abstract class Collectable {
         this.y = y;
         this.pointValue = pointValue;
         this.image = image;
+        isVisible = true;
     }
 
     public void setVisibility(boolean visibility) {
@@ -26,7 +27,18 @@ public abstract class Collectable {
         return y;
     }
 
+    public int getPointValue() {
+        return pointValue;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
     public Image getImage() {
         return image;
+    }
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }
 }

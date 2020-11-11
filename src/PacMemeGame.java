@@ -1,4 +1,4 @@
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -38,9 +38,9 @@ public class PacMemeGame {
                 {0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0},
                 {0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0},
                 {0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0},
-                {0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0},
-                {0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0},
-                {0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
+                {0, 1, 0, 0, 1, 0, 3, 3, 3, 0, 1, 0, 0, 1, 0},
+                {0, 1, 0, 1, 1, 0, 0, 3, 0, 0, 1, 1, 0, 1, 0},
+                {0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
@@ -61,6 +61,8 @@ public class PacMemeGame {
                     dots.add(new Dot(column * 50, row * 50));
                 } else if (position == 2) {
                     memeMan = new MemeMan(column * 50, row * 50);
+                } else if (position == 3) {
+                    ghosts.add(new Ghost(column * 50, row * 50));
                 }
             }
         }
@@ -192,4 +194,47 @@ public class PacMemeGame {
             return o2.score - o1.score;
         }
     }
+
+    public void collisionDetections() {
+
+        Rectangle r1 = memeMan.getBounds();
+
+        //checks the walls
+        for (Wall wall: walls) {
+            Rectangle r2 = wall.getBounds();
+            if(r1.intersects(r2)) {
+                //memeMan.setValidMove(false);
+                //need to figure something out to get it to stop and start
+            }
+        }
+
+        //checks the dots
+        for (Dot dot: dots){
+            if (dot.isVisible()) {
+                Rectangle r2 = dot.getBounds();
+                if (r1.intersects(r2)) {
+                    dot.setVisibility(false);
+                    //increment score here?
+                    score += dot.getPointValue();
+                }
+            }
+        }
+
+        //checks the ghost
+        for (Ghost ghost: ghosts){
+            if (ghost.getVisibility()) {
+                Rectangle r2 = ghost.getBounds();
+                if (r1.intersects(r2)) {
+                    ghost.setVisibility(false);
+                    //increment score here?
+                    //need to also set a point value to ghost
+                    score += 50;
+                }
+            }
+        }
+
+
+    }
+
+
 }

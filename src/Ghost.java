@@ -7,15 +7,15 @@ public class Ghost extends Actor {
 
     private int ghostLocation_X, ghostLocation_Y;
 
-    protected Ghost() {
+    private boolean isVisible;
+
+    protected Ghost(int x, int y) {
         bufferImages();
-        initVariables();
+        ghostLocation_X = x;
+        ghostLocation_Y = y;
+        isVisible = true;
     }
 
-    private void initVariables() {
-        ghostLocation_X = 100;
-        ghostLocation_Y = 100;
-    }
 
     public void bufferImages () {
         ghost = new ImageIcon("images/ghost.jpg").getImage();
@@ -30,5 +30,15 @@ public class Ghost extends Actor {
     }
     public int getGhostLocation_Y() {
         return ghostLocation_Y;
+    }
+    public void setVisibility(boolean isVisible){
+        this.isVisible = isVisible;
+    }
+    public boolean getVisibility() {
+        return isVisible;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(ghostLocation_X, ghostLocation_Y, ghost.getWidth(null), ghost.getHeight(null));
     }
 }

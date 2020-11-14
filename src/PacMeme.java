@@ -22,7 +22,7 @@ public class PacMeme extends JFrame {
 
         EventQueue.invokeLater(() -> {
 
-            var ex = new PacMeme();
+            PacMeme ex = new PacMeme();
             ex.setVisible(true);
         });
     }

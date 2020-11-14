@@ -96,11 +96,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         if (dead) {
             // ded
         } else {
+            pacMemeGame.collisionDetections();
             pacMemeGame.getMemeMan().moveMemeMan();
             drawBoard(g2d);
-            pacMemeGame.collisionDetections();
-
-            //move ghosts, draw ghosts, check the maze for death.
         }
     }
 
@@ -138,7 +136,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     private void drawPowerUps(Graphics2D g2d) {
         for (PowerUp powerUp : pacMemeGame.getPowerUps()) {
-            g2d.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY(), this);
+            if (powerUp.isVisible()) {
+                g2d.drawImage(powerUp.getImage(), powerUp.getX(), powerUp.getY(), this);
+            }
         }
     }
 

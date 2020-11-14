@@ -32,7 +32,7 @@ public class PacMemeGame {
         // populating game board
         gameBoard = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0},
+                {0, 4, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 4, 0},
                 {0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0},
@@ -44,7 +44,7 @@ public class PacMemeGame {
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
-                {0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0},
+                {0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
     }
@@ -63,6 +63,8 @@ public class PacMemeGame {
                     memeMan = new MemeMan(column * 50, row * 50);
                 } else if (position == 3) {
                     ghosts.add(new Ghost(column * 50, row * 50));
+                } else if (position == 4) {
+                    powerUps.add(new PowerUp(column * 50, row * 50));
                 }
             }
         }
@@ -214,24 +216,35 @@ public class PacMemeGame {
                 Rectangle r2 = dot.getBounds();
                 if (r1.intersects(r2)) {
                     dot.setVisibility(false);
-                    //increment score here?
                     score += dot.getPointValue();
                 }
             }
         }
 
+        //checks the PowerUp
+        for (PowerUp powerUp: powerUps){
+            if (powerUp.isVisible()) {
+                Rectangle r2 = powerUp.getBounds();
+                if (r1.intersects(r2)) {
+                    powerUp.setVisibility(false);
+                    score += powerUp.getPointValue();
+                    // Boolean for power up mode here and activate it
+                }
+            }
+        }
         //checks the ghost
         for (Ghost ghost: ghosts){
             if (ghost.getVisibility()) {
                 Rectangle r2 = ghost.getBounds();
                 if (r1.intersects(r2)) {
                     ghost.setVisibility(false);
-                    //increment score here?
                     //need to also set a point value to ghost
                     score += 50;
                 }
             }
         }
+
+
 
 
     }

@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public abstract class Collectable {
-    int x;
+    private int x;
     private int y;
-    private int pointValue;
+    private final int pointValue;
     private boolean isVisible;
-    private Image image;
+    Image image;
 
     public Collectable(int x, int y, int pointValue, Image image) {
         this.x = x;
@@ -38,6 +38,7 @@ public abstract class Collectable {
     public Image getImage() {
         return image;
     }
+
     public Rectangle getBounds() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }

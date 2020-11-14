@@ -184,12 +184,16 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             if (inGame) {
                 if (key == KeyEvent.VK_LEFT) {
                     pacMemeGame.getMemeMan().setMemeManSpeed(-3, 0);
+                    pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_RIGHT) {
                     pacMemeGame.getMemeMan().setMemeManSpeed(3, 0);
+                    pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_UP) {
                     pacMemeGame.getMemeMan().setMemeManSpeed(0, -3);
+                    pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_DOWN) {
                     pacMemeGame.getMemeMan().setMemeManSpeed(0, 3);
+                    pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
                     inGame = false;
                 } else if (key == KeyEvent.VK_PAUSE) {

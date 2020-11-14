@@ -60,7 +60,7 @@ public class PacMemeGame {
                 } else if (position == 1) {
                     dots.add(new Dot(column * 50, row * 50));
                 } else if (position == 2) {
-                    memeMan = new MemeMan(column * 50, row * 50);
+                    memeMan = new MemeMan(column * 50 + 5, row * 50 + 5);
                 } else if (position == 3) {
                     ghosts.add(new Ghost(column * 50, row * 50));
                 } else if (position == 4) {
@@ -204,11 +204,51 @@ public class PacMemeGame {
         //checks the walls
         for (Wall wall: walls) {
             Rectangle r2 = wall.getBounds();
-            if(r1.intersects(r2)) {
-                memeMan.setValidMove(false);
-                //need to figure something out to get it to stop and start
+            if(memeMan.getDirection().equals("left")) {
+            	double memeX = r1.getMinX();
+            	double wallX = r2.getMaxX();
+            	
+            	if (wall.getWallLocation_X() < memeMan.getMemeMan_X() - 5 && 
+            			wall.getWallLocation_Y() == memeMan.getMemeMan_Y() - 5) {
+            		if ((memeX - 3.0) <= wallX) {
+                		memeMan.setValidMove(false);
+                	}
+            	}
+            	
+            	
             }
+//            
+//            if(memeMan.getDirection().equals("right")) {
+//            	double memeX = r1.getMaxX();
+//            	double wallX = r2.getMinX();
+//            	
+//            	if ((memeX + 3.0) >= wallX) {
+//            		memeMan.setValidMove(false);
+//            	}
+//            }
+//            
+//            if(memeMan.getDirection().equals("up")) {
+//            	double memeY = r1.getMinY();
+//            	double wallY = r2.getMaxY();
+//            	
+//            	if ((memeY = 3.0) <= wallY) {
+//            		memeMan.setValidMove(false);
+//            	}
+//            }
+//            
+//            if(memeMan.getDirection().equals("down")) {
+//            	double memeY = r1.getMaxY();
+//            	double wallY = r2.getMinY();
+//            	
+//            	if ((memeY + 3.0) >= wallY) {
+//            		memeMan.setValidMove(false);
+//            	}
+//            }
+                
+                //need to figure something out to get it to stop and start
         }
+        
+
 
         //checks the dots
         for (Dot dot: dots){

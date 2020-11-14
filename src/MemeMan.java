@@ -35,6 +35,19 @@ public class MemeMan {
             memeManLocation_Y += memeManSpeed_Y;
         }
     }
+    
+    public String getDirection() {
+    	
+    	if(memeManSpeed_X == 3) 
+    		return "right";
+    	else if(memeManSpeed_X == -3)
+    		return "left";
+    	else if(memeManSpeed_Y == 3)
+    		return "down";
+    	else
+    		return "up";
+    	
+    }
 
     public void setMemeManSpeed(int X, int Y) {
         memeManSpeed_X = X;

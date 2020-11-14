@@ -205,7 +205,7 @@ public class PacMemeGame {
         for (Wall wall: walls) {
             Rectangle r2 = wall.getBounds();
             if(r1.intersects(r2)) {
-                //memeMan.setValidMove(false);
+                memeMan.setValidMove(false);
                 //need to figure something out to get it to stop and start
             }
         }

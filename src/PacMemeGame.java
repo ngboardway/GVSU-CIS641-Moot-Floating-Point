@@ -102,6 +102,121 @@ public class PacMemeGame {
         return ghosts;
     }
 
+    public void collisionDetections() {
+        Rectangle r1 = memeMan.getBounds();
+
+        //checks the walls
+        for (Wall wall : walls) {
+            Rectangle r2 = wall.getBounds();
+            if (memeMan.getDirection().equals("left")) {
+                double memeX = r1.getMinX();
+                double wallX = r2.getMaxX();
+
+                if (wall.getWallLocation_X() < memeMan.getMemeMan_X()) {
+                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() &&
+                            memeMan.getMemeMan_Y() >= wall.getWallLocation_Y());
+
+                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() + 40 &&
+                            memeMan.getMemeMan_Y() + 40 >= wall.getWallLocation_Y());
+
+                    if (topCornerCrossed || bottomCornerCrossed) {
+                        if ((memeX - 3.0) <= wallX) {
+                            memeMan.setValidMove(false);
+                        }
+                    }
+                }
+            } else if (memeMan.getDirection().equals("right")) {
+                double topRightMemeCorner = r1.getMaxX();
+                double wallX = r2.getMinX();
+
+                if (wall.getWallLocation_X() > memeMan.getMemeMan_X()) {
+                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() &&
+                            memeMan.getMemeMan_Y() >= wall.getWallLocation_Y());
+
+                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() + 40 &&
+                            memeMan.getMemeMan_Y() + 40 >= wall.getWallLocation_Y());
+
+                    if (topCornerCrossed || bottomCornerCrossed) {
+                        if ((topRightMemeCorner + 3.0) >= wallX) {
+                            memeMan.setValidMove(false);
+                        }
+                    }
+                }
+            } else if (memeMan.getDirection().equals("up")) {
+                double memeY = r1.getMinY();
+                double wallY = r2.getMaxY();
+
+                if (wall.getWallLocation_Y() < memeMan.getMemeMan_Y()) {
+                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() &&
+                            memeMan.getMemeMan_X() >= wall.getWallLocation_X());
+
+                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() + 40 &&
+                            memeMan.getMemeMan_X() + 40 >= wall.getWallLocation_X());
+
+                    if (leftCornerCrossed || rightCornerCrossed) {
+                        if ((memeY - 3.0) <= wallY) {
+                            memeMan.setValidMove(false);
+                        }
+                    }
+                }
+            } else {
+                double memeY = r1.getMaxY();
+                double wallY = r2.getMinY();
+
+                if (wall.getWallLocation_Y() > memeMan.getMemeMan_Y()) {
+                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() &&
+                            memeMan.getMemeMan_X() >= wall.getWallLocation_X());
+
+                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() + 40 &&
+                            memeMan.getMemeMan_X() + 40 >= wall.getWallLocation_X());
+
+                    if (leftCornerCrossed || rightCornerCrossed) {
+                        if ((memeY + 3.0) >= wallY) {
+                            memeMan.setValidMove(false);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //checks the dots
+        for (Dot dot : dots) {
+            if (dot.isVisible()) {
+                Rectangle r2 = dot.getBounds();
+                if (r1.intersects(r2)) {
+                    dot.setVisibility(false);
+                    score += dot.getPointValue();
+                }
+            }
+        }
+
+        //checks the PowerUp
+        for (PowerUp powerUp : powerUps) {
+            if (powerUp.isVisible()) {
+                Rectangle r2 = powerUp.getBounds();
+                if (r1.intersects(r2)) {
+                    powerUp.setVisibility(false);
+                    score += powerUp.getPointValue();
+                    // Boolean for power up mode here and activate it
+                }
+            }
+        }
+        //checks the ghost
+        for (Ghost ghost : ghosts) {
+            if (ghost.getVisibility()) {
+                Rectangle r2 = ghost.getBounds();
+                if (r1.intersects(r2)) {
+                    ghost.setVisibility(false);
+                    //need to also set a point value to ghost
+                    score += 50;
+                }
+            }
+        }
+
+
+    }
+
     /*
         Is the score for the current game higher than the lowest score in the
         collection of high scores?
@@ -196,98 +311,4 @@ public class PacMemeGame {
             return o2.score - o1.score;
         }
     }
-
-    public void collisionDetections() {
-
-        Rectangle r1 = memeMan.getBounds();
-
-        //checks the walls
-        for (Wall wall: walls) {
-            Rectangle r2 = wall.getBounds();
-            if(memeMan.getDirection().equals("left")) {
-            	double memeX = r1.getMinX();
-            	double wallX = r2.getMaxX();
-            	
-            	if (wall.getWallLocation_X() < memeMan.getMemeMan_X() - 5 && 
-            			wall.getWallLocation_Y() == memeMan.getMemeMan_Y() - 5) {
-            		if ((memeX - 3.0) <= wallX) {
-                		memeMan.setValidMove(false);
-                	}
-            	}
-            	
-            	
-            }
-//            
-//            if(memeMan.getDirection().equals("right")) {
-//            	double memeX = r1.getMaxX();
-//            	double wallX = r2.getMinX();
-//            	
-//            	if ((memeX + 3.0) >= wallX) {
-//            		memeMan.setValidMove(false);
-//            	}
-//            }
-//            
-//            if(memeMan.getDirection().equals("up")) {
-//            	double memeY = r1.getMinY();
-//            	double wallY = r2.getMaxY();
-//            	
-//            	if ((memeY = 3.0) <= wallY) {
-//            		memeMan.setValidMove(false);
-//            	}
-//            }
-//            
-//            if(memeMan.getDirection().equals("down")) {
-//            	double memeY = r1.getMaxY();
-//            	double wallY = r2.getMinY();
-//            	
-//            	if ((memeY + 3.0) >= wallY) {
-//            		memeMan.setValidMove(false);
-//            	}
-//            }
-                
-                //need to figure something out to get it to stop and start
-        }
-        
-
-
-        //checks the dots
-        for (Dot dot: dots){
-            if (dot.isVisible()) {
-                Rectangle r2 = dot.getBounds();
-                if (r1.intersects(r2)) {
-                    dot.setVisibility(false);
-                    score += dot.getPointValue();
-                }
-            }
-        }
-
-        //checks the PowerUp
-        for (PowerUp powerUp: powerUps){
-            if (powerUp.isVisible()) {
-                Rectangle r2 = powerUp.getBounds();
-                if (r1.intersects(r2)) {
-                    powerUp.setVisibility(false);
-                    score += powerUp.getPointValue();
-                    // Boolean for power up mode here and activate it
-                }
-            }
-        }
-        //checks the ghost
-        for (Ghost ghost: ghosts){
-            if (ghost.getVisibility()) {
-                Rectangle r2 = ghost.getBounds();
-                if (r1.intersects(r2)) {
-                    ghost.setVisibility(false);
-                    //need to also set a point value to ghost
-                    score += 50;
-                }
-            }
-        }
-
-
-
-
-    }
-
-
 }

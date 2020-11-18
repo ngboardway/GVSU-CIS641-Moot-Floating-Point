@@ -50,4 +50,4 @@
 1. Sound Features
 	1. NFR15: Appropriate sound effects shall be linked to in game occurrences and player actions.
 1. Implementation Features
-1. NFR16: The game shall feature maintainable Java code broken into logical and consistent classes.
+	1. NFR16: The game shall feature maintainable Java code broken into logical and consistent classes.

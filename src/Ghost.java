@@ -8,7 +8,7 @@ public class Ghost extends Actor {
     private int ghostLocation_X, ghostLocation_Y;
 
     private boolean isVisible;
-
+    
     protected Ghost(int x, int y) {
         bufferImages();
         ghostLocation_X = x;
@@ -30,6 +30,9 @@ public class Ghost extends Actor {
     }
     public int getGhostLocation_Y() {
         return ghostLocation_Y;
+    }
+    public int getGhostScore() {
+    	return 50;
     }
     public void setVisibility(boolean isVisible){
         this.isVisible = isVisible;

@@ -17,7 +17,7 @@ public class PacMemeGame {
 
     private ArrayList<Dot> dots = new ArrayList<Dot>();
     private ArrayList<Wall> walls = new ArrayList<Wall>();
-    private ArrayList<Fruit> fruit = new ArrayList<Fruit>();
+    private ArrayList<Fruit> fruits = new ArrayList<Fruit>();
     private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
     private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
 
@@ -33,23 +33,23 @@ public class PacMemeGame {
         gameBoard = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 4, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 4, 0},
-                {0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 5, 1, 0, 1, 5, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0},
                 {0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0},
-                {0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0},
-                {0, 1, 0, 0, 1, 0, 3, 3, 3, 0, 1, 0, 0, 1, 0},
+                {0, 1, 1, 1, 1, 0, 0, 3, 0, 0, 1, 1, 1, 1, 0},
+                {0, 1, 0, 0, 5, 0, 3, 3, 3, 0, 5, 0, 0, 1, 0},
                 {0, 1, 0, 1, 1, 0, 0, 3, 0, 0, 1, 1, 0, 1, 0},
                 {0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
+                {0, 1, 0, 5, 1, 1, 0, 1, 0, 1, 1, 5, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
                 {0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
     }
 
-    private void createBoard() {
+    private void createBoard() {    	
         for (int row = 0; row < gameBoard.length; row++) {
             for (int column = 0; column < gameBoard[row].length; column++) {
 
@@ -58,13 +58,15 @@ public class PacMemeGame {
                 if (position == 0) {
                     walls.add(new Wall(column * 50, row * 50));
                 } else if (position == 1) {
-                    dots.add(new Dot(column * 50, row * 50));
+                    dots.add(new Dot(column * 50, row * 50));                    
                 } else if (position == 2) {
                     memeMan = new MemeMan(column * 50 + 5, row * 50 + 5);
                 } else if (position == 3) {
                     ghosts.add(new Ghost(column * 50, row * 50));
                 } else if (position == 4) {
                     powerUps.add(new PowerUp(column * 50, row * 50));
+                } else if (position == 5) {
+                	fruits.add(new Fruit(column * 50, row * 50));
                 }
             }
         }
@@ -91,7 +93,7 @@ public class PacMemeGame {
     }
 
     public ArrayList<Fruit> getFruit() {
-        return fruit;
+        return fruits;
     }
 
     public ArrayList<Wall> getWalls() {
@@ -209,12 +211,21 @@ public class PacMemeGame {
                 if (r1.intersects(r2)) {
                     ghost.setVisibility(false);
                     //need to also set a point value to ghost
-                    score += 50;
+                    score += ghost.getGhostScore();
                 }
             }
         }
-
-
+        //checks the fruit
+        for (Fruit fruit : fruits) {
+            if (fruit.isVisible()) {
+                Rectangle r2 = fruit.getBounds();
+                if (r1.intersects(r2)) {
+                    fruit.setVisibility(false);
+                    //need to also set a point value to fruit
+                    score += fruit.getPointValue();
+                }
+            }
+        }
     }
 
     /*
@@ -223,7 +234,7 @@ public class PacMemeGame {
      */
     public boolean shouldSaveScores() {
         List<ScoreEntry> highScores = readInScores();
-        return score > highScores.get(highScores.size() - 1).score;
+        return score > highScores.get(highScores.size() - 1).getScore();
     }
 
     public void saveHighScores(String playerName) {
@@ -259,7 +270,7 @@ public class PacMemeGame {
      * Will be used to read in the list of high scores both
      * to display them and add a new high score
      */
-    private ArrayList<ScoreEntry> readInScores() {
+    public ArrayList<ScoreEntry> readInScores() {
         try {
             ArrayList<ScoreEntry> allScores = new ArrayList<ScoreEntry>();
             Scanner scanner = new Scanner(GetScoreFile());
@@ -287,28 +298,10 @@ public class PacMemeGame {
         return new File("scores.csv");
     }
 
-    class ScoreEntry {
-        private int score;
-        private String player;
-
-        ScoreEntry(int score, String player) {
-            this.score = score;
-            this.player = player;
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        public String getPlayer() {
-            return player;
-        }
-    }
-
     class ScoreEntryComparator implements Comparator<ScoreEntry> {
         @Override
         public int compare(ScoreEntry o1, ScoreEntry o2) {
-            return o2.score - o1.score;
+            return o2.getScore() - o1.getScore();
         }
     }
 }

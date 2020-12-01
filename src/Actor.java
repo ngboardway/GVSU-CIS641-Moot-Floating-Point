@@ -10,8 +10,6 @@ import java.awt.*;
  */
 public abstract class  Actor {
 
-    Image image;
-
     /** Location of the actor on the x-axis */
     private int x;
 
@@ -28,6 +26,12 @@ public abstract class  Actor {
     /** Boolean if the actor is visible on the board */
     private boolean isVisible;
 
+    /** Boolean if the actor is making a valid move on the board */
+    private boolean isValidMove;
+
+    /** Image icon of the actor */
+    Image image;
+
     /**
      * Default constructor for setting the actors x location, y location,
      * and the image.
@@ -40,6 +44,33 @@ public abstract class  Actor {
         this.x = x;
         this.y = y;
         isVisible = true;
+    }
+
+    /**
+     * Function for moving the actors x-axis and y-axis location
+     * by speedX and speedY.
+     */
+    public void moveActor() {
+        if (isValidMove) {
+            x += speedX;
+            y += speedY;
+        }
+    }
+
+    /**
+     * Getter for returning the direction of the actor.
+     *
+     * @return the direction the actor is moving.
+     */
+    public String getDirection() {
+        if(speedX == 3)
+            return "right";
+        else if(speedX == -3)
+            return "left";
+        else if(speedY == 3)
+            return "down";
+        else
+            return "up";
     }
 
     /**
@@ -96,5 +127,24 @@ public abstract class  Actor {
         isVisible = visibility;
     }
 
+    /**
+     * Setter for setting the speed of the actor.
+     *
+     * @param speedX The new x-axis speed for the actor.
+     * @param speedY The new y-axis speed for the actor.
+     */
+    public void setSpeed(int speedX, int speedY) {
+        this.speedX = speedX;
+        this.speedY = speedY;
+    }
+
+    /**
+     * Setter for setting if the move is valid for the actor
+     * .
+     * @param isValidMove If the move is valid.
+     */
+    public void setValidMove(boolean isValidMove){
+        this.isValidMove = isValidMove;
+    }
 
 }

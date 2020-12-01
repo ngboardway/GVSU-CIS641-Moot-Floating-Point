@@ -115,12 +115,12 @@ public class PacMemeGame {
                 double memeX = r1.getMinX();
                 double wallX = r2.getMaxX();
 
-                if (wall.getWallLocation_X() < memeMan.getMemeMan_X()) {
-                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() &&
-                            memeMan.getMemeMan_Y() >= wall.getWallLocation_Y());
+                if (wall.getWallLocation_X() < memeMan.getX()) {
+                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() &&
+                            memeMan.getY() >= wall.getWallLocation_Y());
 
-                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() + 40 &&
-                            memeMan.getMemeMan_Y() + 40 >= wall.getWallLocation_Y());
+                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() + 40 &&
+                            memeMan.getY() + 40 >= wall.getWallLocation_Y());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
                         if ((memeX - 3.0) <= wallX) {
@@ -132,12 +132,12 @@ public class PacMemeGame {
                 double topRightMemeCorner = r1.getMaxX();
                 double wallX = r2.getMinX();
 
-                if (wall.getWallLocation_X() > memeMan.getMemeMan_X()) {
-                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() &&
-                            memeMan.getMemeMan_Y() >= wall.getWallLocation_Y());
+                if (wall.getWallLocation_X() > memeMan.getX()) {
+                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() &&
+                            memeMan.getY() >= wall.getWallLocation_Y());
 
-                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getMemeMan_Y() + 40 &&
-                            memeMan.getMemeMan_Y() + 40 >= wall.getWallLocation_Y());
+                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() + 40 &&
+                            memeMan.getY() + 40 >= wall.getWallLocation_Y());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
                         if ((topRightMemeCorner + 3.0) >= wallX) {
@@ -149,12 +149,12 @@ public class PacMemeGame {
                 double memeY = r1.getMinY();
                 double wallY = r2.getMaxY();
 
-                if (wall.getWallLocation_Y() < memeMan.getMemeMan_Y()) {
-                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() &&
-                            memeMan.getMemeMan_X() >= wall.getWallLocation_X());
+                if (wall.getWallLocation_Y() < memeMan.getY()) {
+                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() &&
+                            memeMan.getX() >= wall.getWallLocation_X());
 
-                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() + 40 &&
-                            memeMan.getMemeMan_X() + 40 >= wall.getWallLocation_X());
+                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() + 40 &&
+                            memeMan.getX() + 40 >= wall.getWallLocation_X());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
                         if ((memeY - 3.0) <= wallY) {
@@ -166,12 +166,12 @@ public class PacMemeGame {
                 double memeY = r1.getMaxY();
                 double wallY = r2.getMinY();
 
-                if (wall.getWallLocation_Y() > memeMan.getMemeMan_Y()) {
-                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() &&
-                            memeMan.getMemeMan_X() >= wall.getWallLocation_X());
+                if (wall.getWallLocation_Y() > memeMan.getY()) {
+                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() &&
+                            memeMan.getX() >= wall.getWallLocation_X());
 
-                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getMemeMan_X() + 40 &&
-                            memeMan.getMemeMan_X() + 40 >= wall.getWallLocation_X());
+                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() + 40 &&
+                            memeMan.getX() + 40 >= wall.getWallLocation_X());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
                         if ((memeY + 3.0) >= wallY) {

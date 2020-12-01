@@ -128,7 +128,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             // he dead
         } else {
             pacMemeGame.collisionDetections();
-            pacMemeGame.getMemeMan().moveMemeMan();
+            pacMemeGame.getMemeMan().moveActor();
             //move ghost
             drawBoard(g2d);
             
@@ -182,7 +182,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      */
     private void drawMemeMan(Graphics2D g2d) {
         MemeMan memeMan = pacMemeGame.getMemeMan();
-        g2d.drawImage(memeMan.getMemeMan(), memeMan.getMemeMan_X(), memeMan.getMemeMan_Y(), this);
+        g2d.drawImage(memeMan.getImage(), memeMan.getX(), memeMan.getY(), this);
     }
 
     /**
@@ -339,16 +339,16 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
             if (inGame) {
                 if (key == KeyEvent.VK_LEFT) {
-                    pacMemeGame.getMemeMan().setMemeManSpeed(-3, 0);
+                    pacMemeGame.getMemeMan().setSpeed(-3, 0);
                     pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_RIGHT) {
-                    pacMemeGame.getMemeMan().setMemeManSpeed(3, 0);
+                    pacMemeGame.getMemeMan().setSpeed(3, 0);
                     pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_UP) {
-                    pacMemeGame.getMemeMan().setMemeManSpeed(0, -3);
+                    pacMemeGame.getMemeMan().setSpeed(0, -3);
                     pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_DOWN) {
-                    pacMemeGame.getMemeMan().setMemeManSpeed(0, 3);
+                    pacMemeGame.getMemeMan().setSpeed(0, 3);
                     pacMemeGame.getMemeMan().setValidMove(true);
                 } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
                     inGame = false;

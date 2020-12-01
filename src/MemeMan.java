@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class MemeMan {
 
+
     private Image memeMan;
 
     private int memeManLocation_X, memeManLocation_Y;

@@ -1,47 +1,31 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Ghost extends Actor {
+public class Ghost extends Actor{
 
     Image ghost;
 
-    private int ghostLocation_X, ghostLocation_Y;
+    /** The point value of the ghost */
+    private final int pointValue;
 
-    private boolean isVisible;
-    
+    /**
+     * Sets the ghost location, point value, and image icon that will be used.
+     *
+     * @param x x-axis location
+     * @param y y-axis location
+     */
     protected Ghost(int x, int y) {
-        bufferImages();
-        ghostLocation_X = x;
-        ghostLocation_Y = y;
-        isVisible = true;
+        super(x, y,  new ImageIcon("images/ghost.jpg").getImage());
+        pointValue = 50;
     }
 
-
-    public void bufferImages () {
-        ghost = new ImageIcon("images/ghost.jpg").getImage();
-        // Where we would want to load all of the sprite images
+    /**
+     * Getter to get the point value of the ghost object.
+     *
+     * @return pointValue The point value of the ghost.
+     */
+    public int getPointValue() {
+    	return pointValue;
     }
 
-    public Image getGhost() {
-        return ghost;
-    }
-    public int getGhostLocation_X() {
-        return ghostLocation_X;
-    }
-    public int getGhostLocation_Y() {
-        return ghostLocation_Y;
-    }
-    public int getGhostScore() {
-    	return 50;
-    }
-    public void setVisibility(boolean isVisible){
-        this.isVisible = isVisible;
-    }
-    public boolean getVisibility() {
-        return isVisible;
-    }
-
-    public Rectangle getBounds() {
-        return new Rectangle(ghostLocation_X, ghostLocation_Y, ghost.getWidth(null), ghost.getHeight(null));
-    }
 }

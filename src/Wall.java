@@ -15,7 +15,6 @@ public class Wall {
 
     public void bufferImages () {
         wall = new ImageIcon("images/wall.png").getImage();
-        // Where we would want to load all of the sprite images
     }
 
     public Image getWall() {

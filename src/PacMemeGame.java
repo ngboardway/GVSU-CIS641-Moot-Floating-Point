@@ -8,24 +8,49 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * PacMemeGame. This class controls the logic of the game.
+ *
+ *  * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ *  * @version Fall 2020
+ */
 public class PacMemeGame {
 
+    /** 2D array for where the pieces will be placed on the map */
     private int[][] gameBoard;
+
+    /** Instance of MemeMan for the game */
     private MemeMan memeMan;
 
+    /** The Score that the player currently has */
     private int score;
 
+    /** ArrayList of Dot objects that will be on the board */
     private ArrayList<Dot> dots = new ArrayList<Dot>();
+
+    /** ArrayList of Wall objects that will be on the board */
     private ArrayList<Wall> walls = new ArrayList<Wall>();
+
+    /** ArrayList of Fruit objects that will be on the board */
     private ArrayList<Fruit> fruits = new ArrayList<Fruit>();
+
+    /** ArrayList of PowerUp objects that will be on the board */
     private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
+
+    /** ArrayList of Ghost objects that will be on the board */
     private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
 
+    /**
+     * Constructor class to set the variables and board.
+     */
     public PacMemeGame() {
         initVariables();
         createBoard();
     }
 
+    /**
+     * Sets all of the variables we will be using during the game.
+     */
     public void initVariables() {
         score = 0;
 
@@ -49,6 +74,9 @@ public class PacMemeGame {
 
     }
 
+    /**
+     * Sets the location of each object that will be on the board
+     * */
     private void createBoard() {    	
         for (int row = 0; row < gameBoard.length; row++) {
             for (int column = 0; column < gameBoard[row].length; column++) {
@@ -72,38 +100,11 @@ public class PacMemeGame {
         }
     }
 
-    public MemeMan getMemeMan() {
-        return memeMan;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public ArrayList<Dot> getDots() {
-        return dots;
-    }
-
-    public ArrayList<PowerUp> getPowerUps() {
-        return powerUps;
-    }
-
-    public ArrayList<Fruit> getFruit() {
-        return fruits;
-    }
-
-    public ArrayList<Wall> getWalls() {
-        return walls;
-    }
-
-    public ArrayList<Ghost> getGhosts() {
-        return ghosts;
-    }
-
+    /**
+     * Does all of the collision detection for the game. Determines if Meme-Man should
+     * stop moving due to being in front of a wall. If dots, power-ups, fruit, or ghost
+     * have been captured, removes them and increments score if so.
+     */
     public void collisionDetections() {
         Rectangle r1 = memeMan.getBounds();
 
@@ -206,14 +207,16 @@ public class PacMemeGame {
         }
         //checks the ghost
         for (Ghost ghost : ghosts) {
+            //ghost are visibal and power up is active
             if (ghost.getVisibility()) {
                 Rectangle r2 = ghost.getBounds();
                 if (r1.intersects(r2)) {
                     ghost.setVisibility(false);
                     //need to also set a point value to ghost
-                    score += ghost.getGhostScore();
+                    score += ghost.getPointValue();
                 }
-            }
+            } // else kill Meme-Men if they touch
+
         }
         //checks the fruit
         for (Fruit fruit : fruits) {
@@ -228,15 +231,22 @@ public class PacMemeGame {
         }
     }
 
-    /*
-        Is the score for the current game higher than the lowest score in the
-        collection of high scores?
+    /**
+     * Determines if the current players score should be saved in
+     * the high score board. If the current score is higher then the
+     * smallest score in the score board then it needs to be saved.
+     *
+     * @return if the current score should be saved
      */
     public boolean shouldSaveScores() {
         List<ScoreEntry> highScores = readInScores();
         return score > highScores.get(highScores.size() - 1).getScore();
     }
 
+    /**
+     * Saves the high score in the file.
+     * @param playerName the current players name
+     */
     public void saveHighScores(String playerName) {
         ArrayList<ScoreEntry> existingScores = readInScores();
         existingScores.add(new ScoreEntry(score, playerName));
@@ -247,6 +257,11 @@ public class PacMemeGame {
         writeScores(updatedScores);
     }
 
+    /**
+     *  Writes all of the high scores to the file.
+     *
+     * @param scores a list of the high scores
+     */
     private void writeScores(List<ScoreEntry> scores) {
         try {
             File scoreFile = GetScoreFile();
@@ -266,9 +281,11 @@ public class PacMemeGame {
         }
     }
 
-    /*
-     * Will be used to read in the list of high scores both
-     * to display them and add a new high score
+    /**
+     * Used to read in the list of high scores both to display them
+     * and to add a new high score.
+     *
+     * @return an array list of all of the high scores.
      */
     public ArrayList<ScoreEntry> readInScores() {
         try {
@@ -287,6 +304,11 @@ public class PacMemeGame {
         }
     }
 
+    /**
+     *
+     * @param data
+     * @return
+     */
     private ScoreEntry processEntry(String data) {
         String[] scoreData = data.split(",");
         String scoreString = scoreData[1];
@@ -294,10 +316,82 @@ public class PacMemeGame {
         return new ScoreEntry(score, scoreData[0]);
     }
 
+    /**
+     * Gets the file that holds all of the high scores
+     *
+     * @return a file of the high scores
+     */
     private File GetScoreFile() {
         return new File("scores.csv");
     }
 
+    /**
+     * Getter method for getting the memeMan object.
+     * @return memeMan the Meme-Man object.
+     */
+    public MemeMan getMemeMan() {
+        return memeMan;
+    }
+
+    /**
+     * Getter method for getting the the players score.
+     * @return score The score of the game.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Dot objects.
+     * @return dots The dot objects.
+     */
+    public ArrayList<Dot> getDots() {
+        return dots;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of PowerUp objects.
+     * @return powerUps The power-up objects.
+     */
+    public ArrayList<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Fruit objects.
+     * @return fruits The fruit objects.
+     */
+    public ArrayList<Fruit> getFruit() {
+        return fruits;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Wall objects.
+     * @return walls The wall objects.
+     */
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Dot objects.
+     * @return dots The dots.
+     */
+    public ArrayList<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    /**
+     * Setter for setting the players score.
+     * @param score the players score.
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     *
+     */
     class ScoreEntryComparator implements Comparator<ScoreEntry> {
         @Override
         public int compare(ScoreEntry o1, ScoreEntry o2) {

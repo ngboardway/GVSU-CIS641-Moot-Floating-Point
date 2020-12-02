@@ -8,35 +8,49 @@ import javax.swing.*;
 
 /**
  * PacMemeBoard. This class controls what is shown on the JPanel.
- *
- *  * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- *  * @version Fall 2020
+ * <p>
+ * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * * @version Fall 2020
  */
 public class PacMemeBoard extends JPanel implements ActionListener {
 
-    /** Dimension for the board */
+    /**
+     * Dimension for the board
+     */
     private Dimension dimension;
 
-    /** Boolean for if we are in the game */
+    /**
+     * Boolean for if we are in the game
+     */
     private boolean inGame = false;
 
-    /** Boolean for if we are dead */
+    /**
+     * Boolean for if we are dead
+     */
     private boolean dead = false;
 
-    /** Boolean for saving the score */
+    /**
+     * Boolean for saving the score
+     */
     private boolean savingScores = false;
 
-    /** Boolean for if we are viewing the high score board */
+    /**
+     * Boolean for if we are viewing the high score board
+     */
     private boolean viewingLeaderboard = false;
 
-    /** Timer for setting the refresh rate for the paintComponent */
+    /**
+     * Timer for setting the refresh rate for the paintComponent
+     */
     private Timer timer;
 
-    /** Creates instance of PacMemeGame */
+    /**
+     * Creates instance of PacMemeGame
+     */
     private PacMemeGame pacMemeGame;
 
     /**
-     * Constructor class to set the variables and board.
+     * Constructor method to set the variables and board.
      */
     public PacMemeBoard() {
         initVariables();
@@ -79,7 +93,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     /**
      * Draws everything on the screen dependent on if we are in the game,
-     * viewing the leader board, or at the main menu.
+     * viewing the leaderboard, or at the main menu.
      *
      * @param g what is on the JPanel
      */
@@ -91,11 +105,11 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
         if (inGame) {
             playGame(g2d);
-        } else if (savingScores) { 
-        	// Only true if player beats game (all collectable objects isVisible = false)
-        	// UI for saving score (enter initials and write score to CSV) --> showSavingScores()
+        } else if (savingScores) {
+            // Only true if player beats game (all collectable objects isVisible = false)
+            // UI for saving score (enter initials and write score to CSV) --> showSavingScores()
         } else if (viewingLeaderboard) {
-        	showLeaderboard(g2d);
+            showLeaderboard(g2d);
         } else {
             showMainMenu(g2d);
         }
@@ -106,6 +120,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
     /**
      * Draws everything on the board when we are in the game.
+     *
      * @param g2d 2d graphics for what is on the JPanel
      */
     private void drawBoard(Graphics2D g2d) {
@@ -127,16 +142,20 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         if (dead) {
             // he dead
         } else {
+            //move ghost
             pacMemeGame.collisionDetections();
             pacMemeGame.getMemeMan().moveActor();
-            //move ghost
+
+            // draw pieces on updated coordinates
             drawBoard(g2d);
-            
+
+            // if the game is over and they scored in the top ten,
+            // set the flag to show the input for their initials.
             if (isGameOver()) {
-        		inGame = false;
-            	if (pacMemeGame.shouldSaveScores()) {
-            		savingScores = true;
-            	}
+                inGame = false;
+                if (pacMemeGame.shouldSaveScores()) {
+                    savingScores = true;
+                }
             }
         }
     }
@@ -148,33 +167,26 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @return if the game is over or not
      */
     private boolean isGameOver() {
-        //dots fruit and power-ups are collectables, ghost don't determin if the games is
-        // done, only for the highest score possible you have to eat them
-        // for (Collectable collectable ?
+        for (Dot dot : pacMemeGame.getDots()) {
+            if (dot.isVisible()) {
+                return false;
+            }
+        }
 
-    	for (Dot dot : pacMemeGame.getDots()) {
-    		if (dot.isVisible()) {
-    			return false;
-    		}
-    	}
-    	for (Ghost ghost : pacMemeGame.getGhosts()) {
-    		if (ghost.getVisibility()) {
-    			return false;
-    		}
-    	}
-    	for (Fruit fruit : pacMemeGame.getFruit()) {
-    		if (fruit.isVisible()) {
-    			return false;
-    		}
-    	}
-    	for (PowerUp powerUp : pacMemeGame.getPowerUps()) {
-    		if (powerUp.isVisible()) {
-    			return false;
-    		}
-    	}	
-    	return true;
+        for (Fruit fruit : pacMemeGame.getFruit()) {
+            if (fruit.isVisible()) {
+                return false;
+            }
+        }
+
+        for (PowerUp powerUp : pacMemeGame.getPowerUps()) {
+            if (powerUp.isVisible()) {
+                return false;
+            }
+        }
+        return true;
     }
-    
+
     /**
      * Draws Meme-Man on the Graphics 2D board
      *
@@ -219,7 +231,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     private void drawFruit(Graphics2D g2d) {
         for (Fruit fruit : pacMemeGame.getFruit()) {
             if (fruit.isVisible()) {
-            	g2d.drawImage(fruit.getImage(), fruit.getX(), fruit.getY(), this);
+                g2d.drawImage(fruit.getImage(), fruit.getX(), fruit.getY(), this);
             }
         }
     }
@@ -244,7 +256,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      */
     private void drawWalls(Graphics2D g2d) {
         for (Wall wall : pacMemeGame.getWalls()) {
-            g2d.drawImage(wall.getWall(), wall.getWallLocation_X(), wall.getWallLocation_Y(), this);
+            g2d.drawImage(wall.getImage(), wall.getX(), wall.getY(), this);
         }
     }
 
@@ -276,7 +288,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString(s, 160, 230);
-        
+
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString(l, 160, 260);
@@ -287,43 +299,42 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      *
      * @param g2d 2d graphics for what is on the JPanel
      */
-    private void showLeaderboard(Graphics2D g2d) {    	
+    private void showLeaderboard(Graphics2D g2d) {
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, dimension.width, dimension.height);
-    	
+
         Font small = new Font("Helvetica", Font.BOLD, 14);
         Font title = new Font("Helvetica", Font.BOLD, 20);
-        
+
         g2d.setColor(Color.black);
         g2d.setFont(title);
         g2d.drawString("Leaderboard", 160, 200);
-        
+
         ArrayList<ScoreEntry> scores = pacMemeGame.readInScores();
         int yOffset = 20;
         g2d.setFont(small);
-        
+
         if (scores.size() == 0) {
-        	g2d.drawString("There are no scores yet", 160, 230);
+            g2d.drawString("There are no scores yet", 160, 230);
         } else {
             for (ScoreEntry score : scores) {
-            	g2d.drawString(score.toString(), 160, 230 + yOffset);
-            	yOffset += 20;
+                g2d.drawString(score.toString(), 160, 230 + yOffset);
+                yOffset += 20;
             }
         }
     }
-    
+
     private void showSavingScores(Graphics2D g2d) {
-    	
-    	// collect player name as user inputs; pass to saveHighScores() [see PacMemeGame class]
-    	// once player score has been written to CSV; display leaderboard
-    	
-    	savingScores = false;
-    	viewingLeaderboard = true;
-    	
+
+        // collect player name as user inputs; pass to saveHighScores() [see PacMemeGame class]
+        // once player score has been written to CSV; display leaderboard
+
+        savingScores = false;
+        viewingLeaderboard = true;
     }
 
     /**
-     * Keyboard class to determine what is typed on the keyboard.
+     * Keyboard adapter class to help process what is typed on the keyboard.
      */
     class Keyboard extends KeyAdapter {
 
@@ -360,15 +371,15 @@ public class PacMemeBoard extends JPanel implements ActionListener {
                     }
                 }
             } else {
-            	if (!viewingLeaderboard && !savingScores) {
-                	if (key == KeyEvent.VK_SPACE) {
+                if (!viewingLeaderboard && !savingScores) {
+                    if (key == KeyEvent.VK_SPACE) {
                         inGame = true;
                         //initGame();
                     }
-            	}
-                if (key== KeyEvent.VK_L) {
-                	viewingLeaderboard = !viewingLeaderboard;
-                } 
+                }
+                if (key == KeyEvent.VK_L) {
+                    viewingLeaderboard = !viewingLeaderboard;
+                }
             }
         }
     }

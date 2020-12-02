@@ -19,10 +19,6 @@ public class ScoreEntry {
     
     @Override
     public String toString() {
-    
     	return player + " | " + score;
-    	
     }
-    
-	
 }

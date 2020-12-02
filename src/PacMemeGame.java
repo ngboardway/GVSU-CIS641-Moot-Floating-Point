@@ -10,38 +10,54 @@ import java.util.Scanner;
 
 /**
  * PacMemeGame. This class controls the logic of the game.
- *
- *  * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- *  * @version Fall 2020
+ * <p>
+ * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * * @version Fall 2020
  */
 public class PacMemeGame {
 
-    /** 2D array for where the pieces will be placed on the map */
+    /**
+     * 2D array for where the pieces will be placed on the map
+     */
     private int[][] gameBoard;
 
-    /** Instance of MemeMan for the game */
+    /**
+     * Instance of MemeMan for the game
+     */
     private MemeMan memeMan;
 
-    /** The Score that the player currently has */
+    /**
+     * The Score that the player currently has
+     */
     private int score;
 
-    /** ArrayList of Dot objects that will be on the board */
+    /**
+     * ArrayList of Dot objects that will be on the board
+     */
     private ArrayList<Dot> dots = new ArrayList<Dot>();
 
-    /** ArrayList of Wall objects that will be on the board */
+    /**
+     * ArrayList of Wall objects that will be on the board
+     */
     private ArrayList<Wall> walls = new ArrayList<Wall>();
 
-    /** ArrayList of Fruit objects that will be on the board */
+    /**
+     * ArrayList of Fruit objects that will be on the board
+     */
     private ArrayList<Fruit> fruits = new ArrayList<Fruit>();
 
-    /** ArrayList of PowerUp objects that will be on the board */
+    /**
+     * ArrayList of PowerUp objects that will be on the board
+     */
     private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
 
-    /** ArrayList of Ghost objects that will be on the board */
+    /**
+     * ArrayList of Ghost objects that will be on the board
+     */
     private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
 
     /**
-     * Constructor class to set the variables and board.
+     * Constructor method to set the variables and board.
      */
     public PacMemeGame() {
         initVariables();
@@ -76,8 +92,8 @@ public class PacMemeGame {
 
     /**
      * Sets the location of each object that will be on the board
-     * */
-    private void createBoard() {    	
+     */
+    private void createBoard() {
         for (int row = 0; row < gameBoard.length; row++) {
             for (int column = 0; column < gameBoard[row].length; column++) {
 
@@ -86,7 +102,7 @@ public class PacMemeGame {
                 if (position == 0) {
                     walls.add(new Wall(column * 50, row * 50));
                 } else if (position == 1) {
-                    dots.add(new Dot(column * 50, row * 50));                    
+                    dots.add(new Dot(column * 50, row * 50));
                 } else if (position == 2) {
                     memeMan = new MemeMan(column * 50 + 5, row * 50 + 5);
                 } else if (position == 3) {
@@ -94,7 +110,7 @@ public class PacMemeGame {
                 } else if (position == 4) {
                     powerUps.add(new PowerUp(column * 50, row * 50));
                 } else if (position == 5) {
-                	fruits.add(new Fruit(column * 50, row * 50));
+                    fruits.add(new Fruit(column * 50, row * 50));
                 }
             }
         }
@@ -115,12 +131,12 @@ public class PacMemeGame {
                 double memeX = r1.getMinX();
                 double wallX = r2.getMaxX();
 
-                if (wall.getWallLocation_X() < memeMan.getX()) {
-                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() &&
-                            memeMan.getY() >= wall.getWallLocation_Y());
+                if (wall.getX() < memeMan.getX()) {
+                    boolean topCornerCrossed = (wall.getY() + 50 > memeMan.getY() &&
+                            memeMan.getY() >= wall.getY());
 
-                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() + 40 &&
-                            memeMan.getY() + 40 >= wall.getWallLocation_Y());
+                    boolean bottomCornerCrossed = (wall.getY() + 50 > memeMan.getY() + 40 &&
+                            memeMan.getY() + 40 >= wall.getY());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
                         if ((memeX - 3.0) <= wallX) {
@@ -132,12 +148,12 @@ public class PacMemeGame {
                 double topRightMemeCorner = r1.getMaxX();
                 double wallX = r2.getMinX();
 
-                if (wall.getWallLocation_X() > memeMan.getX()) {
-                    boolean topCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() &&
-                            memeMan.getY() >= wall.getWallLocation_Y());
+                if (wall.getX() > memeMan.getX()) {
+                    boolean topCornerCrossed = (wall.getY() + 50 > memeMan.getY() &&
+                            memeMan.getY() >= wall.getY());
 
-                    boolean bottomCornerCrossed = (wall.getWallLocation_Y() + 50 > memeMan.getY() + 40 &&
-                            memeMan.getY() + 40 >= wall.getWallLocation_Y());
+                    boolean bottomCornerCrossed = (wall.getY() + 50 > memeMan.getY() + 40 &&
+                            memeMan.getY() + 40 >= wall.getY());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
                         if ((topRightMemeCorner + 3.0) >= wallX) {
@@ -149,12 +165,12 @@ public class PacMemeGame {
                 double memeY = r1.getMinY();
                 double wallY = r2.getMaxY();
 
-                if (wall.getWallLocation_Y() < memeMan.getY()) {
-                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() &&
-                            memeMan.getX() >= wall.getWallLocation_X());
+                if (wall.getY() < memeMan.getY()) {
+                    boolean leftCornerCrossed = (wall.getX() + 50 > memeMan.getX() &&
+                            memeMan.getX() >= wall.getX());
 
-                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() + 40 &&
-                            memeMan.getX() + 40 >= wall.getWallLocation_X());
+                    boolean rightCornerCrossed = (wall.getX() + 50 > memeMan.getX() + 40 &&
+                            memeMan.getX() + 40 >= wall.getX());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
                         if ((memeY - 3.0) <= wallY) {
@@ -166,12 +182,12 @@ public class PacMemeGame {
                 double memeY = r1.getMaxY();
                 double wallY = r2.getMinY();
 
-                if (wall.getWallLocation_Y() > memeMan.getY()) {
-                    boolean leftCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() &&
-                            memeMan.getX() >= wall.getWallLocation_X());
+                if (wall.getY() > memeMan.getY()) {
+                    boolean leftCornerCrossed = (wall.getX() + 50 > memeMan.getX() &&
+                            memeMan.getX() >= wall.getX());
 
-                    boolean rightCornerCrossed = (wall.getWallLocation_X() + 50 > memeMan.getX() + 40 &&
-                            memeMan.getX() + 40 >= wall.getWallLocation_X());
+                    boolean rightCornerCrossed = (wall.getX() + 50 > memeMan.getX() + 40 &&
+                            memeMan.getX() + 40 >= wall.getX());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
                         if ((memeY + 3.0) >= wallY) {
@@ -183,7 +199,7 @@ public class PacMemeGame {
         }
 
 
-        //checks the dots
+        // checks the dots
         for (Dot dot : dots) {
             if (dot.isVisible()) {
                 Rectangle r2 = dot.getBounds();
@@ -194,7 +210,7 @@ public class PacMemeGame {
             }
         }
 
-        //checks the PowerUp
+        // checks the PowerUp
         for (PowerUp powerUp : powerUps) {
             if (powerUp.isVisible()) {
                 Rectangle r2 = powerUp.getBounds();
@@ -205,35 +221,108 @@ public class PacMemeGame {
                 }
             }
         }
-        //checks the ghost
+
+        // checks the ghost
         for (Ghost ghost : ghosts) {
-            //ghost are visibal and power up is active
+            // ghost are visible and power up is active
             if (ghost.getVisibility()) {
                 Rectangle r2 = ghost.getBounds();
                 if (r1.intersects(r2)) {
                     ghost.setVisibility(false);
-                    //need to also set a point value to ghost
                     score += ghost.getPointValue();
                 }
             } // else kill Meme-Men if they touch
 
         }
-        //checks the fruit
+
+        // checks the fruit
         for (Fruit fruit : fruits) {
             if (fruit.isVisible()) {
                 Rectangle r2 = fruit.getBounds();
                 if (r1.intersects(r2)) {
                     fruit.setVisibility(false);
-                    //need to also set a point value to fruit
                     score += fruit.getPointValue();
                 }
             }
         }
     }
 
+
     /**
-     * Determines if the current players score should be saved in
-     * the high score board. If the current score is higher then the
+     * Getter method for getting the memeMan object.
+     *
+     * @return memeMan the Meme-Man object.
+     */
+    public MemeMan getMemeMan() {
+        return memeMan;
+    }
+
+    /**
+     * Getter method for getting the the players score.
+     *
+     * @return score The score of the game.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Dot objects.
+     *
+     * @return dots The dot objects.
+     */
+    public ArrayList<Dot> getDots() {
+        return dots;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of PowerUp objects.
+     *
+     * @return powerUps The power-up objects.
+     */
+    public ArrayList<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Fruit objects.
+     *
+     * @return fruits The fruit objects.
+     */
+    public ArrayList<Fruit> getFruit() {
+        return fruits;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Wall objects.
+     *
+     * @return walls The wall objects.
+     */
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
+
+    /**
+     * Getter method for getting the ArrayList of Dot objects.
+     *
+     * @return dots The dots.
+     */
+    public ArrayList<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    /**
+     * Setter for setting the players score.
+     *
+     * @param score the players score.
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * Determines if the current player's score should be saved in
+     * the high score board. If the current score is higher than the
      * smallest score in the score board then it needs to be saved.
      *
      * @return if the current score should be saved
@@ -244,7 +333,8 @@ public class PacMemeGame {
     }
 
     /**
-     * Saves the high score in the file.
+     * Saves the current game's score to the file of high scores.
+     *
      * @param playerName the current players name
      */
     public void saveHighScores(String playerName) {
@@ -252,19 +342,22 @@ public class PacMemeGame {
         existingScores.add(new ScoreEntry(score, playerName));
         existingScores.sort(new ScoreEntryComparator());
 
+        // only keep up to the top ten (fewer if there are not yet ten)
         int index = existingScores.size() > 10 ? 10 : existingScores.size();
-        List<ScoreEntry> updatedScores = existingScores.subList(0, index); // only keep the top ten
+        List<ScoreEntry> updatedScores = existingScores.subList(0, index);
         writeScores(updatedScores);
     }
 
     /**
-     *  Writes all of the high scores to the file.
+     * Writes all of the high scores to the file.
      *
      * @param scores a list of the high scores
      */
     private void writeScores(List<ScoreEntry> scores) {
         try {
             File scoreFile = GetScoreFile();
+            // if the score file already exists, recreate it since that's easier
+            // than trying to insert a new line somewhere in the middle of the file.
             if (scoreFile.exists()) {
                 scoreFile.delete();
             }
@@ -282,10 +375,10 @@ public class PacMemeGame {
     }
 
     /**
-     * Used to read in the list of high scores both to display them
-     * and to add a new high score.
+     * Reads in the scores saved in the csv, creates a collection of java objects representing
+     *  these scores and sorts them.
      *
-     * @return an array list of all of the high scores.
+     * @return a sorted array list of all of the high scores.
      */
     public ArrayList<ScoreEntry> readInScores() {
         try {
@@ -305,6 +398,8 @@ public class PacMemeGame {
     }
 
     /**
+     * Parses a given line from the csv and returns a java representation of
+     * that player and their score.
      *
      * @param data
      * @return
@@ -323,70 +418,6 @@ public class PacMemeGame {
      */
     private File GetScoreFile() {
         return new File("scores.csv");
-    }
-
-    /**
-     * Getter method for getting the memeMan object.
-     * @return memeMan the Meme-Man object.
-     */
-    public MemeMan getMemeMan() {
-        return memeMan;
-    }
-
-    /**
-     * Getter method for getting the the players score.
-     * @return score The score of the game.
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Getter method for getting the ArrayList of Dot objects.
-     * @return dots The dot objects.
-     */
-    public ArrayList<Dot> getDots() {
-        return dots;
-    }
-
-    /**
-     * Getter method for getting the ArrayList of PowerUp objects.
-     * @return powerUps The power-up objects.
-     */
-    public ArrayList<PowerUp> getPowerUps() {
-        return powerUps;
-    }
-
-    /**
-     * Getter method for getting the ArrayList of Fruit objects.
-     * @return fruits The fruit objects.
-     */
-    public ArrayList<Fruit> getFruit() {
-        return fruits;
-    }
-
-    /**
-     * Getter method for getting the ArrayList of Wall objects.
-     * @return walls The wall objects.
-     */
-    public ArrayList<Wall> getWalls() {
-        return walls;
-    }
-
-    /**
-     * Getter method for getting the ArrayList of Dot objects.
-     * @return dots The dots.
-     */
-    public ArrayList<Ghost> getGhosts() {
-        return ghosts;
-    }
-
-    /**
-     * Setter for setting the players score.
-     * @param score the players score.
-     */
-    public void setScore(int score) {
-        this.score = score;
     }
 
     /**

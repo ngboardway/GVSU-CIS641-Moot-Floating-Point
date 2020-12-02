@@ -3,34 +3,45 @@ import java.awt.*;
 /**
  * Collectable. Class that will be inherited by Dot, PowerUp, and Fruit and
  * contains all common methods/functions they will be using.
- *
- *  * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- *  * @version Fall 2020
+ * <p>
+ * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * * @version Fall 2020
  */
 public abstract class Collectable {
 
-    /** Location of the collectable on the x-axis */
+    /**
+     * Location of the collectable on the x-axis
+     */
     private final int x;
 
-    /** Location of the collectable on the y-axis */
+    /**
+     * Location of the collectable on the y-axis
+     */
     private final int y;
 
-    /** Point value of the given collectable */
+    /**
+     * Point value of the given collectable
+     */
     private final int pointValue;
 
-    /** Boolean if the collectable is visible on the board */
+    /**
+     * Boolean if the collectable is visible on the board
+     */
     private boolean isVisible;
 
-    /** Image icon of the collectable */
+    /**
+     * Image icon of the collectable
+     */
     final Image image;
 
     /**
      * Default constructor for setting the actors x location, y location,
      * and the image.
-     * @param x x-axis location of the actor.
-     * @param y y-axis location of the actor.
+     *
+     * @param x          x-axis location of the actor.
+     * @param y          y-axis location of the actor.
      * @param pointValue the point value of the collectable.
-     * @param image image of the actor.
+     * @param image      image of the actor.
      */
     public Collectable(int x, int y, int pointValue, Image image) {
         this.x = x;

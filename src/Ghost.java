@@ -31,5 +31,4 @@ public class Ghost extends Actor{
     public int getPointValue() {
     	return pointValue;
     }
-
 }

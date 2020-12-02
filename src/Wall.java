@@ -7,27 +7,29 @@ public class Wall {
 
     private int wallLocation_X, wallLocation_Y;
 
-    protected Wall(int x, int y) {    	
-    	bufferImages();
-    	wallLocation_X = x;
-    	wallLocation_Y = y;
+    protected Wall(int x, int y) {
+        bufferImages();
+        wallLocation_X = x;
+        wallLocation_Y = y;
     }
 
-    public void bufferImages () {
+    public void bufferImages() {
         wall = new ImageIcon("images/wall.png").getImage();
     }
 
-    public Image getWall() {
+    public Image getImage() {
         return wall;
     }
-    public int getWallLocation_X() {
+
+    public int getX() {
         return wallLocation_X;
     }
-    public int getWallLocation_Y() {
+
+    public int getY() {
         return wallLocation_Y;
     }
+
     public Rectangle getBounds() {
         return new Rectangle(wallLocation_X, wallLocation_Y, wall.getWidth(null), wall.getHeight(null));
     }
-	
 }

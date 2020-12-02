@@ -4,42 +4,57 @@ import java.awt.*;
 /**
  * Actor. Class that will be inherited by Ghost and MemeMan, it
  * contains all common methods/functions they will be using.
- *
- *  * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- *  * @version Fall 2020
+ * <p>
+ * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * * @version Fall 2020
  */
-public abstract class  Actor {
+public abstract class Actor {
 
-    /** Location of the actor on the x-axis */
+    /**
+     * Location of the actor on the x-axis
+     */
     private int x;
 
-    /** Location of the actor on the y-axis */
+    /**
+     * Location of the actor on the y-axis
+     */
     private int y;
 
-    /** Integer to represent the speed on the x-axis the actor is moving */
+    /**
+     * Integer to represent the speed on the x-axis the actor is moving
+     */
 
     private int speedX;
 
-    /** Integer to represent the speed on the y-axis the actor is moving */
+    /**
+     * Integer to represent the speed on the y-axis the actor is moving
+     */
     private int speedY;
 
-    /** Boolean if the actor is visible on the board */
+    /**
+     * Boolean if the actor is visible on the board
+     */
     private boolean isVisible;
 
-    /** Boolean if the actor is making a valid move on the board */
+    /**
+     * Boolean if the actor is making a valid move on the board
+     */
     private boolean isValidMove;
 
-    /** Image icon of the actor */
+    /**
+     * Image icon of the actor
+     */
     Image image;
 
     /**
      * Default constructor for setting the actors x location, y location,
      * and the image.
-     * @param x x-axis location of the actor.
-     * @param y y-axis location of the actor.
+     *
+     * @param x     x-axis location of the actor.
+     * @param y     y-axis location of the actor.
      * @param image image of the actor.
      */
-    protected Actor(int x, int y, Image image){
+    protected Actor(int x, int y, Image image) {
         this.image = image;
         this.x = x;
         this.y = y;
@@ -63,11 +78,11 @@ public abstract class  Actor {
      * @return the direction the actor is moving.
      */
     public String getDirection() {
-        if(speedX == 3)
+        if (speedX == 3)
             return "right";
-        else if(speedX == -3)
+        else if (speedX == -3)
             return "left";
-        else if(speedY == 3)
+        else if (speedY == 3)
             return "down";
         else
             return "up";
@@ -139,12 +154,11 @@ public abstract class  Actor {
     }
 
     /**
-     * Setter for setting if the move is valid for the actor
-     * .
+     * Setter for setting if the move is valid for the actor.
+     *
      * @param isValidMove If the move is valid.
      */
-    public void setValidMove(boolean isValidMove){
+    public void setValidMove(boolean isValidMove) {
         this.isValidMove = isValidMove;
     }
-
 }

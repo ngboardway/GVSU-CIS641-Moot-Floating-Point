@@ -345,6 +345,7 @@ public class PacMemeGame {
      */
     public boolean shouldSaveScores() {
         List<ScoreEntry> highScores = readInScores();
+        if(highScores.size() == 0) return true;
         return score > highScores.get(highScores.size() - 1).getScore();
     }
 

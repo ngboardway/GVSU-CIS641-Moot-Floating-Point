@@ -27,12 +27,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     /**
      * Boolean for if we are dead
      */
-    private boolean dead = false;
-
-    /**
-     * Boolean for saving the score
-     */
-    private boolean savingScores = false;
+    private boolean inGameOver = false;
 
     /**
      * Boolean for if we are viewing the high score board
@@ -43,6 +38,15 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Timer for setting the refresh rate for the paintComponent
      */
     private Timer timer;
+
+
+
+    /**
+     *
+     */
+    private int powerUpIncrement;
+
+    private final int powerUpTime = 1500;
 
     /**
      * Creates instance of PacMemeGame
@@ -66,7 +70,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
         //I want to lower the delay, change his movement from 3px down to apx.
         //but the collision detection breaks when I do - nick
-        timer = new Timer(40, this);
+        timer = new Timer(10, this);
         timer.start();
     }
 
@@ -105,9 +109,8 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
         if (inGame) {
             playGame(g2d);
-        } else if (savingScores) {
-            // Only true if player beats game (all collectable objects isVisible = false)
-            // UI for saving score (enter initials and write score to CSV) --> showSavingScores()
+        } else if (inGameOver) {
+            showGameOver(g2d);
         } else if (viewingLeaderboard) {
             showLeaderboard(g2d);
         } else {
@@ -139,22 +142,51 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d 2d graphics for what is on the JPanel
      */
     private void playGame(Graphics2D g2d) {
-        if (dead) {
-            // he dead
+
+        if (pacMemeGame.getMemeMan().getLifeCount() <= 0) {
+
+            inGameOver = true;
+            inGame = false;
+
+            if (pacMemeGame.shouldSaveScores()) {
+                pacMemeGame.saveHighScores();
+            }
+
         } else {
-            //move ghost
-            pacMemeGame.collisionDetections();
-            pacMemeGame.getMemeMan().moveActor();
 
-            // draw pieces on updated coordinates
-            drawBoard(g2d);
 
-            // if the game is over and they scored in the top ten,
-            // set the flag to show the input for their initials.
-            if (isGameOver()) {
-                inGame = false;
-                if (pacMemeGame.shouldSaveScores()) {
-                    savingScores = true;
+            if (pacMemeGame.getMemeMan().getDead()) {
+
+                pacMemeGame.getMemeMan().decLife();
+
+            } else {
+                // Move ghost
+                pacMemeGame.collisionDetections();
+                pacMemeGame.getMemeMan().moveActor();
+
+
+                if (pacMemeGame.getMemeMan().getPowerUpActive()) {
+                    powerUpIncrement++;
+                    System.out.println(powerUpIncrement);
+
+                    // If we are in a power up
+                    if (powerUpIncrement >= powerUpTime) {
+                        pacMemeGame.getMemeMan().setPowerUpActive(false);
+                        powerUpIncrement = 0;
+                    }
+                }
+
+                // draw pieces on updated coordinates
+                drawBoard(g2d);
+
+                // if the game is over and they scored in the top ten,
+                // set the flag to show the input for their initials.
+                if (isGameWon()) {
+                    inGame = false;
+                    inGameOver = true;
+                    if (pacMemeGame.shouldSaveScores()) {
+                        pacMemeGame.saveHighScores();
+                    }
                 }
             }
         }
@@ -166,7 +198,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      *
      * @return if the game is over or not
      */
-    private boolean isGameOver() {
+    private boolean isGameWon() {
         for (Dot dot : pacMemeGame.getDots()) {
             if (dot.isVisible()) {
                 return false;
@@ -270,6 +302,10 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString("Score:      " + pacMemeGame.getScore(), 10, 770);
+
+        g2d.drawString("Lives:      " + pacMemeGame.getMemeMan().getLifeCount(), 640, 770);
+
+
     }
 
     /**
@@ -292,6 +328,24 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString(l, 160, 260);
+    }
+
+    private void showGameOver(Graphics2D g2d) {
+        g2d.setColor(Color.white);
+        g2d.fillRect(0, 0, dimension.width, dimension.height);
+
+        String s = "GAME OVER!";
+        String l = "Score: " + pacMemeGame.getScore();
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+
+        g2d.setColor(Color.black);
+        g2d.setFont(small);
+        g2d.drawString(s, 160, 230);
+
+        g2d.setColor(Color.black);
+        g2d.setFont(small);
+        g2d.drawString(l, 160, 260);
+
     }
 
     /**
@@ -324,15 +378,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         }
     }
 
-    private void showSavingScores(Graphics2D g2d) {
-
-        // collect player name as user inputs; pass to saveHighScores() [see PacMemeGame class]
-        // once player score has been written to CSV; display leaderboard
-
-        savingScores = false;
-        viewingLeaderboard = true;
-    }
-
     /**
      * Keyboard adapter class to help process what is typed on the keyboard.
      */
@@ -349,32 +394,36 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             int key = e.getKeyCode();
 
             if (inGame) {
-                if (key == KeyEvent.VK_LEFT) {
-                    pacMemeGame.getMemeMan().setSpeed(-3, 0);
+                if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
+                    pacMemeGame.getMemeMan().setSpeed(-1, 0);
                     pacMemeGame.getMemeMan().setValidMove(true);
-                } else if (key == KeyEvent.VK_RIGHT) {
-                    pacMemeGame.getMemeMan().setSpeed(3, 0);
+                } else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+                    pacMemeGame.getMemeMan().setSpeed(1, 0);
                     pacMemeGame.getMemeMan().setValidMove(true);
-                } else if (key == KeyEvent.VK_UP) {
-                    pacMemeGame.getMemeMan().setSpeed(0, -3);
+                } else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+                    pacMemeGame.getMemeMan().setSpeed(0, -1);
                     pacMemeGame.getMemeMan().setValidMove(true);
-                } else if (key == KeyEvent.VK_DOWN) {
-                    pacMemeGame.getMemeMan().setSpeed(0, 3);
+                } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+                    pacMemeGame.getMemeMan().setSpeed(0, 1);
                     pacMemeGame.getMemeMan().setValidMove(true);
-                } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
-                    inGame = false;
-                } else if (key == KeyEvent.VK_PAUSE) {
+                }else if (key == KeyEvent.VK_SPACE) {
                     if (timer.isRunning()) {
                         timer.stop();
                     } else {
                         timer.start();
                     }
                 }
+            } else if(inGameOver) {
+                if (key == KeyEvent.VK_SPACE) {
+                    inGameOver = false;
+                    pacMemeGame = new PacMemeGame();
+
+                }
             } else {
-                if (!viewingLeaderboard && !savingScores) {
+                if (!viewingLeaderboard) {
                     if (key == KeyEvent.VK_SPACE) {
+                        pacMemeGame.setUserName(JOptionPane.showInputDialog("Name: "));
                         inGame = true;
-                        //initGame();
                     }
                 }
                 if (key == KeyEvent.VK_L) {

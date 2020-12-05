@@ -3,10 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * PacMemeGame. This class controls the logic of the game.
@@ -30,6 +28,8 @@ public class PacMemeGame {
      * The Score that the player currently has
      */
     private int score;
+
+    private String userName;
 
     /**
      * ArrayList of Dot objects that will be on the board
@@ -55,6 +55,7 @@ public class PacMemeGame {
      * ArrayList of Ghost objects that will be on the board
      */
     private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+
 
     /**
      * Constructor method to set the variables and board.
@@ -85,10 +86,12 @@ public class PacMemeGame {
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 5, 1, 1, 0, 1, 0, 1, 1, 5, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
-                {0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
+                {0, 4, 1, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
     }
+
+
 
     /**
      * Sets the location of each object that will be on the board
@@ -139,7 +142,7 @@ public class PacMemeGame {
                             memeMan.getY() + 40 >= wall.getY());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
-                        if ((memeX - 3.0) <= wallX) {
+                        if ((memeX - 1.0) <= wallX) {
                             memeMan.setValidMove(false);
                         }
                     }
@@ -156,7 +159,7 @@ public class PacMemeGame {
                             memeMan.getY() + 40 >= wall.getY());
 
                     if (topCornerCrossed || bottomCornerCrossed) {
-                        if ((topRightMemeCorner + 3.0) >= wallX) {
+                        if ((topRightMemeCorner + 1.0) >= wallX) {
                             memeMan.setValidMove(false);
                         }
                     }
@@ -173,7 +176,7 @@ public class PacMemeGame {
                             memeMan.getX() + 40 >= wall.getX());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
-                        if ((memeY - 3.0) <= wallY) {
+                        if ((memeY - 1.0) <= wallY) {
                             memeMan.setValidMove(false);
                         }
                     }
@@ -190,7 +193,7 @@ public class PacMemeGame {
                             memeMan.getX() + 40 >= wall.getX());
 
                     if (leftCornerCrossed || rightCornerCrossed) {
-                        if ((memeY + 3.0) >= wallY) {
+                        if ((memeY +1.0) >= wallY) {
                             memeMan.setValidMove(false);
                         }
                     }
@@ -215,23 +218,31 @@ public class PacMemeGame {
             if (powerUp.isVisible()) {
                 Rectangle r2 = powerUp.getBounds();
                 if (r1.intersects(r2)) {
+                    memeMan.setPowerUpActive(true);
                     powerUp.setVisibility(false);
                     score += powerUp.getPointValue();
-                    // Boolean for power up mode here and activate it
                 }
             }
         }
 
         // checks the ghost
         for (Ghost ghost : ghosts) {
-            // ghost are visible and power up is active
+            // ghost are visible
             if (ghost.getVisibility()) {
                 Rectangle r2 = ghost.getBounds();
                 if (r1.intersects(r2)) {
-                    ghost.setVisibility(false);
-                    score += ghost.getPointValue();
+
+                    // if we are in power-up or not
+                    if (memeMan.getPowerUpActive()) {
+                        ghost.setVisibility(false);
+                        score += ghost.getPointValue();
+                    } else {
+                        memeMan.setDead(true);
+                    }
+
+
                 }
-            } // else kill Meme-Men if they touch
+            }
 
         }
 
@@ -311,6 +322,11 @@ public class PacMemeGame {
         return ghosts;
     }
 
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     /**
      * Setter for setting the players score.
      *
@@ -334,12 +350,10 @@ public class PacMemeGame {
 
     /**
      * Saves the current game's score to the file of high scores.
-     *
-     * @param playerName the current players name
      */
-    public void saveHighScores(String playerName) {
+    public void saveHighScores() {
         ArrayList<ScoreEntry> existingScores = readInScores();
-        existingScores.add(new ScoreEntry(score, playerName));
+        existingScores.add(new ScoreEntry(score, userName));
         existingScores.sort(new ScoreEntryComparator());
 
         // only keep up to the top ten (fewer if there are not yet ten)
@@ -429,4 +443,5 @@ public class PacMemeGame {
             return o2.getScore() - o1.getScore();
         }
     }
+
 }

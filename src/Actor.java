@@ -78,11 +78,11 @@ public abstract class Actor {
      * @return the direction the actor is moving.
      */
     public String getDirection() {
-        if (speedX == 3)
+        if (speedX == 1)
             return "right";
-        else if (speedX == -3)
+        else if (speedX == -1)
             return "left";
-        else if (speedY == 3)
+        else if (speedY == 1)
             return "down";
         else
             return "up";
@@ -160,5 +160,10 @@ public abstract class Actor {
      */
     public void setValidMove(boolean isValidMove) {
         this.isValidMove = isValidMove;
+    }
+
+    public void setLocation(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

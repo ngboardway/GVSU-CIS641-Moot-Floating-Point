@@ -19,8 +19,17 @@ public class Ghost extends Actor{
      * @param y y-axis location
      */
     protected Ghost(int x, int y) {
-        super(x, y,  new ImageIcon("images/ghost.jpg").getImage());
+        super(x, y);
+        setImage(this.getRandomImage());
         pointValue = 50;
+    }
+    protected Image getRandomImage() {
+        int num = getRandomNumber(1, 9);
+        return new ImageIcon("images/Ghost" + num + ".png").getImage();
+    }
+
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
     /**

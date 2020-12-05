@@ -111,10 +111,12 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             playGame(g2d);
         } else if (inGameOver) {
             showGameOver(g2d);
+            timer.stop();
         } else if (viewingLeaderboard) {
             showLeaderboard(g2d);
         } else {
             showMainMenu(g2d);
+
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -345,7 +347,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString(l, 160, 260);
-
     }
 
     /**
@@ -416,6 +417,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             } else if(inGameOver) {
                 if (key == KeyEvent.VK_SPACE) {
                     inGameOver = false;
+                    timer.start();
                     pacMemeGame = new PacMemeGame();
 
                 }

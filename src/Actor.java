@@ -52,6 +52,19 @@ public abstract class Actor {
      *
      * @param x     x-axis location of the actor.
      * @param y     y-axis location of the actor.
+     */
+    protected Actor(int x, int y) {
+        this.x = x;
+        this.y = y;
+        isVisible = true;
+    }
+
+    /**
+     * Default constructor for setting the actors x location, y location,
+     * and the image.
+     *
+     * @param x     x-axis location of the actor.
+     * @param y     y-axis location of the actor.
      * @param image image of the actor.
      */
     protected Actor(int x, int y, Image image) {
@@ -95,6 +108,14 @@ public abstract class Actor {
      */
     public Image getImage() {
         return image;
+    }
+
+    /**
+     *
+     * @param image
+     */
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     /**

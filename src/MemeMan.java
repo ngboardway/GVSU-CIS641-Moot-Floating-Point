@@ -49,6 +49,12 @@ public class MemeMan extends Actor {
     public int getLifeCount() {
         return lifeCount;
     }
+    public Image getImage() {
+        if (isPowerUpActive) {
+            return new ImageIcon("images/link2.png").getImage();
+        }
+        return image;
+    }
 
     public void decLife(){
         lifeCount--;

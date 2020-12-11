@@ -32,7 +32,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     /**
      * Boolean for if we are viewing the high score board
      */
-    private boolean viewingLeaderboard = false;
+    private boolean inLeaderboard = false;
+
+    private boolean inControl = false;
 
     /**
      * Timer for setting the refresh rate for the paintComponent
@@ -44,7 +46,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     /**
      *
      */
-    private int powerUpIncrement;
+    //private int powerUpIncrement;
 
     private final int powerUpTime = 1500;
 
@@ -52,6 +54,10 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Creates instance of PacMemeGame
      */
     private PacMemeGame pacMemeGame;
+
+    Font small = new Font("Helvetica", Font.BOLD, 25);
+    Font large = new Font ("Helvetica", Font.BOLD, 80);
+    Font medium = new Font ("Helvetica", Font.BOLD, 50);
 
     /**
      * Constructor method to set the variables and board.
@@ -112,11 +118,12 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         } else if (inGameOver) {
             showGameOver(g2d);
             timer.stop();
-        } else if (viewingLeaderboard) {
+        } else if (inLeaderboard) {
             showLeaderboard(g2d);
-        } else {
+        } else if(inControl) {
+            showContol(g2d);
+        }else {
             showMainMenu(g2d);
-
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -168,13 +175,13 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
 
                 if (pacMemeGame.getMemeMan().getPowerUpActive()) {
-                    powerUpIncrement++;
-                    System.out.println(powerUpIncrement);
+                    pacMemeGame.getMemeMan().incPowerUpIncrement();
+                    System.out.println(pacMemeGame.getMemeMan().getPowerUpIncrement());
 
                     // If we are in a power up
-                    if (powerUpIncrement >= powerUpTime) {
+                    if (pacMemeGame.getMemeMan().getPowerUpIncrement() >= powerUpTime) {
                         pacMemeGame.getMemeMan().setPowerUpActive(false);
-                        powerUpIncrement = 0;
+                        pacMemeGame.getMemeMan().setPowerUpIncrement(0);
                     }
                 }
 
@@ -300,7 +307,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d 2d graphics for what is on the JPanel
      */
     private void drawScore(Graphics2D g2d) {
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+        //Font small = new Font("Helvetica", Font.BOLD, 14);
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString("Score:      " + pacMemeGame.getScore(), 10, 770);
@@ -319,34 +326,72 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, dimension.width, dimension.height);
 
+        String w = "Welcome to:";
+        String m = "Pac Meme!!";
         String s = "Press space bar to start.";
         String l = "Press 'L' to toggle leaderboard.";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+        String c = "Press 'C' to toggle controls";
+
+        g2d.drawImage(new ImageIcon("images/funny1.jpg").getImage(), 500, 500, this);
+        g2d.drawImage(new ImageIcon("images/link.png").getImage(), 100, 600, this);
+        g2d.drawImage(new ImageIcon("images/Ghost1.png").getImage(), 200, 600, this);
+        g2d.drawImage(new ImageIcon("images/Ghost2.png").getImage(), 250, 600, this);
+        g2d.drawImage(new ImageIcon("images/Ghost3.png").getImage(), 300, 600, this);
+        g2d.drawImage(new ImageIcon("images/Ghost4.png").getImage(), 350, 600, this);
+
+        FontMetrics metricsMedium = g2d.getFontMetrics(medium);
+        FontMetrics metricsLarge = g2d.getFontMetrics(large);
+        FontMetrics metricsSmall = g2d.getFontMetrics(small);
 
         g2d.setColor(Color.black);
-        g2d.setFont(small);
-        g2d.drawString(s, 160, 230);
+        g2d.setFont(medium);
+        g2d.drawString(w, (dimension.width / 2) - (metricsMedium.stringWidth(w) / 2), 100);
 
-        g2d.setColor(Color.black);
+        g2d.setFont(large);
+        g2d.drawString(m, (dimension.width / 2) - (metricsLarge.stringWidth(m) / 2), 250);
+
         g2d.setFont(small);
-        g2d.drawString(l, 160, 260);
+        g2d.drawString(s, 165, 400);
+        g2d.drawString(l, 165, 450);
+        g2d.drawString(c, 165, 500);
     }
 
     private void showGameOver(Graphics2D g2d) {
-        g2d.setColor(Color.white);
-        g2d.fillRect(0, 0, dimension.width, dimension.height);
+        FontMetrics metricsLarge = g2d.getFontMetrics(large);
+        FontMetrics metricsSmall = g2d.getFontMetrics(small);
 
-        String s = "GAME OVER!";
-        String l = "Score: " + pacMemeGame.getScore();
-        Font small = new Font("Helvetica", Font.BOLD, 14);
+        String s = "GAME OVER";
+        String l = pacMemeGame.getUserName() + "'s score: " + pacMemeGame.getScore();
+
+        g2d.setColor(Color.black);
+        g2d.setFont(large);
+        g2d.drawString(s, (dimension.width / 2) - (metricsLarge.stringWidth(s) / 2), 300);
 
         g2d.setColor(Color.black);
         g2d.setFont(small);
-        g2d.drawString(s, 160, 230);
+        g2d.drawString(l, 160, 400);
+    }
+
+    private void showContol(Graphics2D g2d) {
+        FontMetrics metricsLarge = g2d.getFontMetrics(large);
+        FontMetrics metricsMedium = g2d.getFontMetrics(medium);
+
+        String c = "Game Controls";
+        String l = "\u2190 or A : Left";
+        String u = "\u2191 or W : Up";
+        String r = "\u2192 or D : Right";
+        String d = "\u2193 or S : Down";
 
         g2d.setColor(Color.black);
-        g2d.setFont(small);
-        g2d.drawString(l, 160, 260);
+        g2d.setFont(large);
+        g2d.drawString(c, (dimension.width / 2) - (metricsLarge.stringWidth(c) / 2), 130);
+
+        g2d.setFont(medium);
+        g2d.drawString(l, (dimension.width / 2) - (metricsMedium.stringWidth(l) / 2), 300);
+        g2d.drawString(u, (dimension.width / 2) - (metricsMedium.stringWidth(u) / 2), 400);
+        g2d.drawString(r, (dimension.width / 2) - (metricsMedium.stringWidth(r) / 2), 500);
+        g2d.drawString(d, (dimension.width / 2) - (metricsMedium.stringWidth(d) / 2), 600);
+
     }
 
     /**
@@ -355,26 +400,26 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d 2d graphics for what is on the JPanel
      */
     private void showLeaderboard(Graphics2D g2d) {
-        g2d.setColor(Color.white);
-        g2d.fillRect(0, 0, dimension.width, dimension.height);
+        FontMetrics metricsLarge = g2d.getFontMetrics(large);
+        FontMetrics metricsSmall = g2d.getFontMetrics(small);
 
-        Font small = new Font("Helvetica", Font.BOLD, 14);
-        Font title = new Font("Helvetica", Font.BOLD, 20);
+        g2d.drawImage(new ImageIcon("images/funny2.jpg").getImage(), 20, 500, this);
 
         g2d.setColor(Color.black);
-        g2d.setFont(title);
-        g2d.drawString("Leaderboard", 160, 200);
+        g2d.setFont(large);
+        g2d.drawString("Leaderboard", (dimension.width / 2) - (metricsLarge.stringWidth("Leaderboard") / 2), 130);
 
         ArrayList<ScoreEntry> scores = pacMemeGame.readInScores();
-        int yOffset = 20;
+        int yOffset = 40;
+        int y = 230;
         g2d.setFont(small);
 
         if (scores.size() == 0) {
-            g2d.drawString("There are no scores yet", 160, 230);
+            g2d.drawString("There are no scores yet", (dimension.width / 2) - (metricsSmall.stringWidth("There are no scores yet") / 2), y);
         } else {
             for (ScoreEntry score : scores) {
-                g2d.drawString(score.toString(), 160, 230 + yOffset);
-                yOffset += 20;
+                g2d.drawString(score.toString(), (dimension.width / 2) - (metricsSmall.stringWidth(score.toString()) / 2), y);
+                y += yOffset;
             }
         }
     }
@@ -422,14 +467,29 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
                 }
             } else {
-                if (!viewingLeaderboard) {
+                if (!inLeaderboard) {
                     if (key == KeyEvent.VK_SPACE) {
-                        pacMemeGame.setUserName(JOptionPane.showInputDialog("Name: "));
-                        inGame = true;
+
+                        // Create box
+                        Box box = Box.createHorizontalBox();
+                        JLabel label = new JLabel("Enter your name: ");
+                        box.add(label);
+                        JTextField textField = new JTextField(16);
+                        box.add(textField);
+                        final ImageIcon icon = new ImageIcon("images/link.png");
+
+                        int test = JOptionPane.showConfirmDialog(null, box, "Player Name",  JOptionPane.OK_CANCEL_OPTION, JOptionPane.NO_OPTION, icon);
+                        if (test == JOptionPane.OK_OPTION && textField.getText().length() != 0) {
+                            pacMemeGame.setUserName(textField.getText());
+                            inGame = true;
+                        }
                     }
                 }
                 if (key == KeyEvent.VK_L) {
-                    viewingLeaderboard = !viewingLeaderboard;
+                    inLeaderboard = !inLeaderboard;
+                }
+                if  (key == KeyEvent.VK_C) {
+                    inControl = !inControl;
                 }
             }
         }

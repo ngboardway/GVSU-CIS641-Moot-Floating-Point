@@ -15,6 +15,7 @@ public class MemeMan extends Actor {
 
     private boolean isDead;
 
+    private int powerUpIncrement;
     /**
      * Sets Meme-Man's starting location, and image icon that will be used.
      *
@@ -26,6 +27,7 @@ public class MemeMan extends Actor {
         isPowerUpActive = false;
         isDead = false;
         lifeCount = 3;
+        powerUpIncrement = 0;
     }
 
     /**
@@ -55,10 +57,18 @@ public class MemeMan extends Actor {
         }
         return image;
     }
-
     public void decLife(){
         lifeCount--;
         setLocation(355, 655);
         isDead = false;
+    }
+    public int getPowerUpIncrement(){
+        return powerUpIncrement;
+    }
+    public void incPowerUpIncrement(){
+        powerUpIncrement++;
+    }
+    public void setPowerUpIncrement(int powerUpIncrement) {
+        this.powerUpIncrement = powerUpIncrement;
     }
 }

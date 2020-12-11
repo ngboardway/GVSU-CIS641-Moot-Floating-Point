@@ -218,6 +218,7 @@ public class PacMemeGame {
             if (powerUp.isVisible()) {
                 Rectangle r2 = powerUp.getBounds();
                 if (r1.intersects(r2)) {
+                    memeMan.setPowerUpIncrement(0);
                     memeMan.setPowerUpActive(true);
                     powerUp.setVisibility(false);
                     score += powerUp.getPointValue();
@@ -433,6 +434,10 @@ public class PacMemeGame {
      */
     private File GetScoreFile() {
         return new File("scores.csv");
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     /**

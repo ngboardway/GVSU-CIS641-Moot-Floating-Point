@@ -1,4 +1,9 @@
-
+/**
+ * ScoreEntry. Controls the ScoreEntry object.
+ *
+ * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * @version Fall 2020
+ */
 public class ScoreEntry {
 
     private int score;

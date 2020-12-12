@@ -8,55 +8,60 @@ import javax.swing.*;
 
 /**
  * PacMemeBoard. This class controls what is shown on the JPanel.
- * <p>
- * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- * * @version Fall 2020
+ *
+ * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * @version Fall 2020
  */
 public class PacMemeBoard extends JPanel implements ActionListener {
 
     /**
-     * Dimension for the board
+     * Dimension for the board.
      */
     private Dimension dimension;
 
     /**
-     * Boolean for if we are in the game
+     * Boolean for if we are in the game.
      */
     private boolean inGame = false;
 
     /**
-     * Boolean for if we are dead
+     * Boolean for if we are dead.
      */
     private boolean inGameOver = false;
 
     /**
-     * Boolean for if we are viewing the high score board
+     * Boolean for if we are viewing the high score board.
      */
     private boolean inLeaderboard = false;
 
+    /**
+     * Boolean for if we are viewing the controls.
+     */
     private boolean inControl = false;
 
     /**
-     * Timer for setting the refresh rate for the paintComponent
+     * Timer for setting the refresh rate for the paintComponent.
      */
     private Timer timer;
 
-
-
     /**
-     *
-     */
-    //private int powerUpIncrement;
-
-    private final int powerUpTime = 1500;
-
-    /**
-     * Creates instance of PacMemeGame
+     * Creates instance of PacMemeGame.
      */
     private PacMemeGame pacMemeGame;
 
+    /**
+     * Font for all of the small text used.
+     */
     Font small = new Font("Helvetica", Font.BOLD, 25);
+
+    /**
+     * Font for all of the large text used.
+     */
     Font large = new Font ("Helvetica", Font.BOLD, 80);
+
+    /**
+     * Font for all of the medium text used.
+     */
     Font medium = new Font ("Helvetica", Font.BOLD, 50);
 
     /**
@@ -74,8 +79,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         pacMemeGame = new PacMemeGame();
         dimension = new Dimension(766, 820);
 
-        //I want to lower the delay, change his movement from 3px down to apx.
-        //but the collision detection breaks when I do - nick
         timer = new Timer(10, this);
         timer.start();
     }
@@ -93,7 +96,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Overriding method to call our own drawing method. Called each
      * increment of the global timer.
      *
-     * @param g what is on the JPanel
+     * @param g what is on the JPanel.
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -105,13 +108,10 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Draws everything on the screen dependent on if we are in the game,
      * viewing the leaderboard, or at the main menu.
      *
-     * @param g what is on the JPanel
+     * @param g what is on the JPanel.
      */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
-        g2d.setColor(Color.white);
-        g2d.fillRect(0, 0, dimension.width, dimension.height);
 
         if (inGame) {
             playGame(g2d);
@@ -121,7 +121,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         } else if (inLeaderboard) {
             showLeaderboard(g2d);
         } else if(inControl) {
-            showContol(g2d);
+            showControl(g2d);
         }else {
             showMainMenu(g2d);
         }
@@ -133,7 +133,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     /**
      * Draws everything on the board when we are in the game.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawBoard(Graphics2D g2d) {
         drawDots(g2d);
@@ -146,39 +146,39 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * The game loop for moving Meme-Man and the ghosts
+     * The game loop for moving Meme-Man and the ghosts.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void playGame(Graphics2D g2d) {
 
+        // If life count is 0
         if (pacMemeGame.getMemeMan().getLifeCount() <= 0) {
 
             inGameOver = true;
             inGame = false;
-
             if (pacMemeGame.shouldSaveScores()) {
                 pacMemeGame.saveHighScores();
             }
 
+
         } else {
 
-
             if (pacMemeGame.getMemeMan().getDead()) {
-
                 pacMemeGame.getMemeMan().decLife();
 
             } else {
-                // Move ghost
                 pacMemeGame.collisionDetections();
                 pacMemeGame.getMemeMan().moveActor();
+                // This is where we would make the call the move the ghost.
 
-
+                // If we are in a power-up
                 if (pacMemeGame.getMemeMan().getPowerUpActive()) {
                     pacMemeGame.getMemeMan().incPowerUpIncrement();
                     System.out.println(pacMemeGame.getMemeMan().getPowerUpIncrement());
 
-                    // If we are in a power up
+                    // Turn off power-up if we ar over 1500 (15 seconds)
+                    int powerUpTime = 1500;
                     if (pacMemeGame.getMemeMan().getPowerUpIncrement() >= powerUpTime) {
                         pacMemeGame.getMemeMan().setPowerUpActive(false);
                         pacMemeGame.getMemeMan().setPowerUpIncrement(0);
@@ -205,7 +205,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * Determines if the game is over or not. If all of the collectables have
      * been consumed then the game is over.
      *
-     * @return if the game is over or not
+     * @return if the game is over or not.
      */
     private boolean isGameWon() {
         for (Dot dot : pacMemeGame.getDots()) {
@@ -229,9 +229,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws Meme-Man on the Graphics 2D board
+     * Draws Meme-Man on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawMemeMan(Graphics2D g2d) {
         MemeMan memeMan = pacMemeGame.getMemeMan();
@@ -239,9 +239,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the ghosts on the Graphics 2D board
+     * Draws the ghosts on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawGhosts(Graphics2D g2d) {
         for (Ghost ghost : pacMemeGame.getGhosts()) {
@@ -252,9 +252,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the dots on the Graphics 2D board
+     * Draws the dots on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawDots(Graphics2D g2d) {
         for (Dot dot : pacMemeGame.getDots()) {
@@ -265,9 +265,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the fruit on the Graphics 2D board
+     * Draws the fruit on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawFruit(Graphics2D g2d) {
         for (Fruit fruit : pacMemeGame.getFruit()) {
@@ -278,9 +278,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the power-ups on the Graphics 2D board
+     * Draws the power-ups on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawPowerUps(Graphics2D g2d) {
         for (PowerUp powerUp : pacMemeGame.getPowerUps()) {
@@ -291,9 +291,9 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the walls on the Graphics 2D board
+     * Draws the walls on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawWalls(Graphics2D g2d) {
         for (Wall wall : pacMemeGame.getWalls()) {
@@ -302,25 +302,22 @@ public class PacMemeBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Draws the score on the Graphics 2D board
+     * Draws the score and life count on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawScore(Graphics2D g2d) {
-        //Font small = new Font("Helvetica", Font.BOLD, 14);
+        Font small = new Font("Helvetica", Font.BOLD, 14);
         g2d.setColor(Color.black);
         g2d.setFont(small);
         g2d.drawString("Score:      " + pacMemeGame.getScore(), 10, 770);
-
         g2d.drawString("Lives:      " + pacMemeGame.getMemeMan().getLifeCount(), 640, 770);
-
-
     }
 
     /**
-     * Draws the main menu on the Graphics 2D board
+     * Draws the main menu on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void showMainMenu(Graphics2D g2d) {
         g2d.setColor(Color.white);
@@ -341,7 +338,6 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
         FontMetrics metricsMedium = g2d.getFontMetrics(medium);
         FontMetrics metricsLarge = g2d.getFontMetrics(large);
-        FontMetrics metricsSmall = g2d.getFontMetrics(small);
 
         g2d.setColor(Color.black);
         g2d.setFont(medium);
@@ -356,6 +352,11 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.drawString(c, 165, 500);
     }
 
+    /**
+     * Draws the game over screen on the Graphics 2D board.
+     *
+     * @param g2d 2d graphics for what is on the JPanel.
+     */
     private void showGameOver(Graphics2D g2d) {
         FontMetrics metricsLarge = g2d.getFontMetrics(large);
         FontMetrics metricsSmall = g2d.getFontMetrics(small);
@@ -369,10 +370,15 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
         g2d.setColor(Color.black);
         g2d.setFont(small);
-        g2d.drawString(l, 160, 400);
+        g2d.drawString(l, (dimension.width / 2) - (metricsSmall.stringWidth(l) / 2), 400);
     }
 
-    private void showContol(Graphics2D g2d) {
+    /**
+     * Draws the control screen on the Graphics 2D board.
+     *
+     * @param g2d 2d graphics for what is on the JPanel.
+     */
+    private void showControl(Graphics2D g2d) {
         FontMetrics metricsLarge = g2d.getFontMetrics(large);
         FontMetrics metricsMedium = g2d.getFontMetrics(medium);
 
@@ -391,13 +397,12 @@ public class PacMemeBoard extends JPanel implements ActionListener {
         g2d.drawString(u, (dimension.width / 2) - (metricsMedium.stringWidth(u) / 2), 400);
         g2d.drawString(r, (dimension.width / 2) - (metricsMedium.stringWidth(r) / 2), 500);
         g2d.drawString(d, (dimension.width / 2) - (metricsMedium.stringWidth(d) / 2), 600);
-
     }
 
     /**
-     * Draws the leaderboard on the Graphics 2D board
+     * Draws the leaderboard on the Graphics 2D board.
      *
-     * @param g2d 2d graphics for what is on the JPanel
+     * @param g2d 2d graphics for what is on the JPanel.
      */
     private void showLeaderboard(Graphics2D g2d) {
         FontMetrics metricsLarge = g2d.getFontMetrics(large);
@@ -467,7 +472,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
                 }
             } else {
-                if (!inLeaderboard) {
+                if (!inLeaderboard && !inControl) {
                     if (key == KeyEvent.VK_SPACE) {
 
                         // Create box
@@ -485,17 +490,21 @@ public class PacMemeBoard extends JPanel implements ActionListener {
                         }
                     }
                 }
-                if (key == KeyEvent.VK_L) {
+                if (key == KeyEvent.VK_L && !inControl) {
                     inLeaderboard = !inLeaderboard;
                 }
-                if  (key == KeyEvent.VK_C) {
+                if  (key == KeyEvent.VK_C && !inLeaderboard) {
                     inControl = !inControl;
                 }
             }
         }
     }
 
-
+    /**
+     * Repaints JPanel every time actionPerformed is called.
+     *
+     * @param e the event action.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();

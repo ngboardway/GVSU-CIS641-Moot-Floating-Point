@@ -8,9 +8,9 @@ import java.util.List;
 
 /**
  * PacMemeGame. This class controls the logic of the game.
- * <p>
- * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- * * @version Fall 2020
+ *
+ * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * @version Fall 2020
  */
 public class PacMemeGame {
 
@@ -29,6 +29,9 @@ public class PacMemeGame {
      */
     private int score;
 
+    /**
+     * The name the user will be using
+     */
     private String userName;
 
     /**
@@ -86,7 +89,7 @@ public class PacMemeGame {
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
                 {0, 1, 0, 5, 1, 1, 0, 1, 0, 1, 1, 5, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
-                {0, 4, 1, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
+                {0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
     }
@@ -323,18 +326,12 @@ public class PacMemeGame {
         return ghosts;
     }
 
-
+    /**
+     * Setter for setting the players name.
+     * @param userName the players name.
+     */
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    /**
-     * Setter for setting the players score.
-     *
-     * @param score the players score.
-     */
-    public void setScore(int score) {
-        this.score = score;
     }
 
     /**
@@ -417,8 +414,8 @@ public class PacMemeGame {
      * Parses a given line from the csv and returns a java representation of
      * that player and their score.
      *
-     * @param data
-     * @return
+     * @param data Line from csv file of a name and score.
+     * @return ScoreEntry object for that player.
      */
     private ScoreEntry processEntry(String data) {
         String[] scoreData = data.split(",");
@@ -428,14 +425,19 @@ public class PacMemeGame {
     }
 
     /**
-     * Gets the file that holds all of the high scores
+     * Gets the file that holds all of the high scores.
      *
-     * @return a file of the high scores
+     * @return a file of the high scores.
      */
     private File GetScoreFile() {
         return new File("scores.csv");
     }
 
+    /**
+     * Getter to get the current players user name.
+     *
+     * @return the user name.
+     */
     public String getUserName() {
         return userName;
     }

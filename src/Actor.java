@@ -4,19 +4,19 @@ import java.awt.*;
 /**
  * Actor. Class that will be inherited by Ghost and MemeMan, it
  * contains all common methods/functions they will be using.
- * <p>
- * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- * * @version Fall 2020
+ *
+ * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * @version Fall 2020
  */
 public abstract class Actor {
 
     /**
-     * Location of the actor on the x-axis
+     * Integer to represent the location of the actor on the x-axis
      */
     private int x;
 
     /**
-     * Location of the actor on the y-axis
+     * Integer to represent the location of the actor on the y-axis
      */
     private int y;
 
@@ -44,11 +44,10 @@ public abstract class Actor {
     /**
      * Image icon of the actor
      */
-    Image image;
+    private Image image;
 
     /**
-     * Default constructor for setting the actors x location, y location,
-     * and the image.
+     * Default constructor for setting the actors x location, y location.
      *
      * @param x     x-axis location of the actor.
      * @param y     y-axis location of the actor.
@@ -108,14 +107,6 @@ public abstract class Actor {
      */
     public Image getImage() {
         return image;
-    }
-
-    /**
-     *
-     * @param image
-     */
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     /**
@@ -183,8 +174,23 @@ public abstract class Actor {
         this.isValidMove = isValidMove;
     }
 
+    /**
+     * Setter for setting the location of the actor.
+     *
+     * @param x the new x-axis location for the actor.
+     * @param y the new y-axis location for the actor.
+     */
     public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Setter for setting the image for the actor.
+     *
+     * @param image image for the actor.
+     */
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

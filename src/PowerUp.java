@@ -3,14 +3,14 @@ import java.awt.*;
 
 /**
  * PowerUp. Controls the power-up object.
- * <p>
- * * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
- * * @version Fall 2020
+ *
+ * @author Jon Griesen, Natalie Boardway, Nate Stern, Nick Reitz
+ * @version Fall 2020
  */
 public class PowerUp extends Collectable {
 
     /**
-     * Sets the power-ups location, point value, and image icon that will be used.
+     * Constructor to set the power-ups location, point value, and image icon that will be used.
      *
      * @param x x-axis location
      * @param y y-axis location

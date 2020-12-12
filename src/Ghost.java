@@ -9,14 +9,16 @@ import java.awt.*;
  */
 public class Ghost extends Actor{
 
-    /** The point value of the ghost */
+    /**
+     * The point value of the ghost.
+     */
     private final int pointValue;
 
     /**
      * Constructor to set the ghosts starting location, point value, and image icon that will be used.
      *
-     * @param x x-axis location
-     * @param y y-axis location
+     * @param x x-axis location.
+     * @param y y-axis location.
      */
     protected Ghost(int x, int y) {
         super(x, y);
@@ -27,7 +29,7 @@ public class Ghost extends Actor{
     /**
      * Creates a random number and returns one of the ghost images associated with that number.
      *
-     * @return ImageIcon of the ghost associated with the random number that was generated
+     * @return ImageIcon of the ghost associated with the random number that was generated.
      */
     protected Image getRandomImage() {
         int num = (int) ((Math.random() * (9 - 1)) + 1);

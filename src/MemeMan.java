@@ -9,16 +9,24 @@ import java.awt.*;
  */
 public class MemeMan extends Actor {
 
-    /** If Meme-Mans power up mode is active */
+    /**
+     * If Meme-Mans power up mode is active.
+     */
     private boolean isPowerUpActive;
 
-    /** Number of lives Meme-Man has */
+    /**
+     * Number of lives Meme-Man has.
+     */
     private int lifeCount;
 
-    /** If Meme-Man is dead */
+    /**
+     * If Meme-Man is dead.
+     */
     private boolean isDead;
 
-    /** Increment used to count how long the power up has been running */
+    /**
+     * Increment used to count how long the power up has been running.
+     */
     private int powerUpIncrement;
 
     /**

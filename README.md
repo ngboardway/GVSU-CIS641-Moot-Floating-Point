@@ -11,4 +11,10 @@ Our project is based off the basics of Pac-Man. Your character moves around the 
 
 ## Prerequisites
 
+<Need to add prerequisites>
+
 ## Run Instructions
+
+<Need to add to this>
+Players will need a copy of an Java IDE in order to run Pac-Meme. Once the IDE is open and the....
+The players goal when playing the game is to gather all of the collectables (dots, fruits, and power-ups) in order to win the game. While the user is playing there will be ghost that fallower the player trying to eat him. If the player is eaten buy a ghost they lose a life and respawn at the starting point. If the player is in power up mode, from eating a power up located in each corner of the game, the player will be able to eat ghosts removing them from the game and rewarding the player with points. 

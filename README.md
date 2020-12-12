@@ -1,6 +1,6 @@
 # Moot Floating Point
 
-Project description (~1 paragraph)
+Our project is based off the basics of Pac-Man. Your character moves around the maze while trying to not into walls or ghosts. The player’s goal is to collect all of the dots, which both increase your score and allow you to beat each level. There are special power-ups that allow you to eat the ghosts and temporarily disables them. Our update to the game includes Meme based sprites.
 
 ## Team Members and Roles
 

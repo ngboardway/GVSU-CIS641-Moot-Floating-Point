@@ -11,7 +11,7 @@ Our project is based off the basics of Pac-Man. Your character moves around the 
 
 ## Prerequisites
 
-<Need to add prerequisites>
+Playrs will need a copy of an IDE (Integrated development environment) that will run Java, we recomoned. The player will also need a JRE (Java Runtime Environment). 
 
 ## Run Instructions
 

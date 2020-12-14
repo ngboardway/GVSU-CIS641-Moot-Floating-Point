@@ -15,5 +15,7 @@ Players will need a copy of an IDE (Integrated development environment) that wil
 
 ## Run Instructions
 
-Players will need a copy of an Java IDE in order to run Pac-Meme. Once the IDE is open and the....
-The players goal when playing the game is to gather all of the collectables (dots, fruits, and power-ups) in order to win the game. While the user is playing there will be ghost that fallower the player trying to eat him. If the player is eaten buy a ghost they lose a life and respawn at the starting point. If the player is in power up mode, from eating a power up located in each corner of the game, the player will be able to eat ghosts removing them from the game and rewarding the player with points. 
+From this Git Hub page, click the drop down in the top-middle part of the screen that says ‘Code’ and select ‘Download ZIP.’ Navigate to the download folder and extract the zipped file. Open a Java IDE and open the new extracted folder named “GVSU-CIS641-Moot-Floating-Point-master.” Expanding the Project folder will show all of the files in project. Expand the folder names ‘src,’ right click on ‘PacMeme’ file, and click ‘RunPackMeme.main()”. Pack-Meme will now be running and can be played. 
+
+The players goal when playing Pac-Meme is to gather all of the collectables (dots, fruits, and power-ups) in order to win the game. There will be ghost that fallower the player trying to eat him while trying to eat the collectables. If the player is eaten by a ghost, they lose a life and respawn at the starting point. If the player is in power up mode, from eating a power up located in each corner of the game, the player will be able to eat ghosts removing them from the game and rewarding the player with points. The game is done when Pac-Meme has either eaten all of the collectables or if he has lost all three of his lives.
+

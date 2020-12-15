@@ -29,6 +29,10 @@
 **[Data Persistance Diagrams](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/data-persistence-models/Data%20Persistence%20Models.pdf)**
 
 
+## Artifacts - HCI
+**[WND](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/hci/WND.pdf)**
+
+
 ## Documents
 **[Midterm Presentation](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/CIS%20641%20Midterm%20Presentation.pdf)**  
 **[Proposal Template](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/proposal-template.md)**  

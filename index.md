@@ -36,4 +36,4 @@
 ## Documents
 **[Midterm Presentation](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/CIS%20641%20Midterm%20Presentation.pdf)**  
 **[Proposal Template](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/proposal-template.md)**  
-**[Requirements Specifications](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/software_requirements_specification.md)**
+**[Requirements Specifications](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/docs/software_requirements_specification_final.md)**

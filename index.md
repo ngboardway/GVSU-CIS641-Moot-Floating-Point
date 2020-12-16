@@ -26,7 +26,7 @@
 
 
 ## Artifacts - Data Persistence Models
-**[Data Persistance Diagrams](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/data-persistence-models/Data%20Persistence%20Models.pdf)**
+**[Data Persistence Diagrams](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/data-persistence-models/Data%20Persistence%20Models.pdf)**
 
 
 ## Artifacts - HCI

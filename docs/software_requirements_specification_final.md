@@ -13,7 +13,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | FR3 | The player shall view the high-score leaderboard list after the 'L' button is pressed. |
 | FR4 | Gameplay shall begin after user completes the name entry prompt. |
 | FR5 | The high-score leaderboard shall list the entered name that corresponds with the score the player achieved. |
-| … | … |
 
 ### Scoring 
 
@@ -25,7 +24,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | FR9 | While in the powered-up state, the player shall receive 50 points for collecting a ghost. |
 | FR10 | The maximum possible score a player shall receive for collecting all consumables within the maze is 1400 points. |
 | FR11 | The game shall store the player score at the end of the game if it is sufficient enough to be in the top 10 on the leaderboard. |
-| … | … |
 
 ### Gameplay
 
@@ -40,7 +38,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | FR18 | Movement direction of the player character shall correspond with the direction of the arrow or "WASD" key pressed. |
 | FR19 | The user shall achieve the win condition after collecting all available dots and fruits. |
 | FR20 | The collectables shall be removed from the maze upon player interaction. |
-| … | … |
 
 ### Sprites
 
@@ -52,7 +49,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | FR24 | The player character sprite shall update to "powered-up" sprite image upon collection of power-up. |
 | FR25 | The player character sprite shall be 40 x 40 pixels in size. |
 | FR26 | The ghost and collectable sprites shall be 50 x 50 pixels in size. |
-| … | … |
 
 ### Maze
 
@@ -63,7 +59,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | FR29 | Each square of the maze boundary system shall be 50 x 50 pixels in size. |
 | FR30 | The maze shall consist of a contiguous outer wall and non-contiguous inner walls.  |
 | FR31 | The total size of the maze shall be 750 x 750 pixels. |
-| … | … |
 
 ## Non-Functional Requirements
 
@@ -76,7 +71,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR3 | The user shall easily understand how to enter their name into the dialog box. |
 | NFR4 | The user shall have easy access to game controls from the title screen. |
 | NFR5 | The user should find text within the start screen and high-score leaderboard to be of appropriate size and legible. |
-| … | … |
 
 ### Scoring 
 
@@ -87,7 +81,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR8 | The player shall perceive the different collectable score allocations as fair and appropriately rewarding. |
 | NFR9 | The player shall achieve a score equitable to their level of skill by the end of the game. |
 | NFR10 | The player shall not be able to alter their score in any way beyond interacting with collectables during the course of a game. |
-| … | … |
 
 ### Gameplay
 
@@ -99,7 +92,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR14 | Users shall deem the gameplay to be intuitive and easy to perform. |
 | NFR15 | Users shall find the gameplay fun and rewarding. |
 | NFR16 | The gameplay screen and layout shall be logical and consistent with user expectations. |
-| … | … |
 
 ### Sprites
 
@@ -110,7 +102,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR19 | The game shall use high quality sprites as models for characters and consumables. |
 | NFR20 | The user shall quickly learn the difference and purpose of each of the different sprites. |
 | NFR21 | The sprites shall have a frame rate that is pleasing to the user's eyes. |
-| … | … |
 
 ### Maze
 
@@ -121,7 +112,6 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR24 | The game shall not allow users to clip the player character through the outer boundary wall nor the inner maze walls. |
 | NFR25 | Users shall learn quickly that the walls of the maze serve as an impenetrable boundary. |
 | NFR26 | Users shall not be able to alter the maze layout or the location of collectibles within the maze. |
-| … | … |
 
 # Change management plan
 
@@ -183,7 +173,6 @@ This section highlights how key UML diagrams link to the various funtional and n
 | :-------------: | :----------: | :----------: |
 | [Activity Diagram #1 - Ver2](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Activity%20Diagram%20%231%20-%20Ver2.pdf) | Gameplay and Movement | FR12-15, FR17-18, FR19-20, NFR12-15 |
 | [Activity Diagram #2](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Activity%20Diagram%20%232.pdf) | High-Score Leaderboard | FR2-3, FR5, NFR1-2, NFR5 |
-| … | … | … |
 
 ## Use-Case Diagram Traceability
 
@@ -192,7 +181,6 @@ This section highlights how key UML diagrams link to the various funtional and n
 | [Use Case Diagram #1](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use%20Case%20Diagram%20%231.pdf) | Game System | FR19-20, NFR12-15 |
 | [Use Case Diagram #2](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use%20Case%20Diagram%20%232.pdf)  | Start Menu | FR3-4, NFR1-2, NFR5 |
 | [Use Case Diagram #3](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use_Case_Diagram%20%233.pdf) | High Score Menu | FR2, FR5, NFR1-2, NFR5 |
-| … | … | … |
 
 ## Class Diagram
 
@@ -221,8 +209,8 @@ Linked below are all of the relevant software artifacts created prior to or duri
 
 ## Data Persistence Models
 
-[Relational, NoSQL, & Flat File Database Diagrams](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/data-persistence-models/Data%20Persistence%20Models.pdf)
+* [Relational, NoSQL, & Flat File Database Diagrams](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/data-persistence-models/Data%20Persistence%20Models.pdf)
 
 ## Human-Computer Interaction (HCI)
 
-[Windows Navigation Diagram](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/hci/WND.pdf)
+* [Windows Navigation Diagram](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/hci/WND.pdf)

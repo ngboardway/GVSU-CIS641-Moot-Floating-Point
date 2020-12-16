@@ -113,7 +113,7 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 | NFR25 | Users shall learn quickly that the walls of the maze serve as an impenetrable boundary. |
 | NFR26 | Users shall not be able to alter the maze layout or the location of collectibles within the maze. |
 
-# Change management plan
+# Change Management Plan
 
     As with all applications, a key consideration for Pac-Meme will be ensuring effective and widespread
     adoption of the platform amongst the target user base. To achieve this stated goal, the help of a formal
@@ -134,7 +134,7 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
 
     In terms of integration into the ecosystems of sponsors and potential adopters, the easily accessible
     nature of PacMeme should prove to be advantageous. As outlined in the README.md, the only requisites for
-    running the application are installation of the Java Runtime Environment (JRE) and a Java IDE such as Eclipse
+    running the application are a JDK (Java Development Kit) and the installation of a Java IDE such as Eclipse 
     or IntelliJ. These applications can be run on virtually any computer ecosystem (Windows, Mac, Linux) and will
     allow for widespread usage of PacMeme across a variety of adopter circumstances. This integration methodology
     is likely to be even further streamlined down the road through the use of executable JAR files, which could
@@ -162,7 +162,7 @@ These requirements are delineated by the following features:  Menus, Scoring, Ga
     developer website. This input will be continually consulted to ensure user concerns are being addressed and
     gameplay improvements are being actively applied.
 
-# Traceability links
+# Traceability Links
 
 This section highlights how key UML diagrams link to the various funtional and non-functional requirements listed in the previous software requirements section.  
 *Note: not all functional requirements directly link to the UML diagrams listed below.

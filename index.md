@@ -16,7 +16,7 @@
 **[Use Case Description #1](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use%20Case%20Description%20%231%20-%20Ver2.pdf)**    
 **[Use Case Diagram #1](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use%20Case%20Description%20%231%20-%20Ver2.pdf)**  
 **[Use Case Diagram #2](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use%20Case%20Diagram%20%232.pdf)**  
-**[Use Case Diagram #3](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use_Case_Diagram_3.pdf)**  
+**[Use Case Diagram #3](https://github.com/ngboardway/GVSU-CIS641-Moot-Floating-Point/blob/master/artifacts/functional-models/Use_Case_Diagram%20%233.pdf)**  
 
 
 ## Artifacts - Structural Models

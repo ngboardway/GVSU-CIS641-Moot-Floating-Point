@@ -34,5 +34,5 @@ The player's goal when playing Pac-Meme is to gather all of the collectables (do
 
 <p float="left">
   <img src="/images/demo/PacMeme5.PNG?raw=true" width="49%">
-  <img src="/images/demo/PacMeme7.gif?raw=true" width="49%">
+  <img src="/images/demo/PacMeme6.gif?raw=true" width="49%">
 </p>

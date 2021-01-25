@@ -112,6 +112,10 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        
+        // Improve readability of all g2d graphics text.
+        g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
         if (inGame) {
             playGame(g2d);
@@ -122,7 +126,7 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             showLeaderboard(g2d);
         } else if(inControl) {
             showControl(g2d);
-        }else {
+        } else {
             showMainMenu(g2d);
         }
 
@@ -136,12 +140,12 @@ public class PacMemeBoard extends JPanel implements ActionListener {
      * @param g2d 2d graphics for what is on the JPanel.
      */
     private void drawBoard(Graphics2D g2d) {
-        drawDots(g2d);
         drawWalls(g2d);
+    	drawDots(g2d);
         drawMemeMan(g2d);
-        drawGhosts(g2d);
         drawFruit(g2d);
         drawPowerUps(g2d);
+        drawGhosts(g2d);
         drawScore(g2d);
     }
 
@@ -166,12 +170,17 @@ public class PacMemeBoard extends JPanel implements ActionListener {
 
             if (pacMemeGame.getMemeMan().getDead()) {
                 pacMemeGame.getMemeMan().decLife();
+                
+                // resets any remaining ghosts to their respective starting positions
+                for (Ghost ghost : pacMemeGame.getGhosts()) {
+                	ghost.setLocation(ghost.getStartingX(), ghost.getStartingY());
+                }
 
             } else {
-                pacMemeGame.collisionDetections();
+                pacMemeGame.performCollisionDetections();
                 pacMemeGame.getMemeMan().moveActor();
-                // This is where we would make the call the move the ghost.
-
+                moveGhosts();
+                
                 // If we are in a power-up
                 if (pacMemeGame.getMemeMan().getPowerUpActive()) {
                     pacMemeGame.getMemeMan().incPowerUpIncrement();
@@ -428,6 +437,33 @@ public class PacMemeBoard extends JPanel implements ActionListener {
             }
         }
     }
+    
+    /**
+     * Controls board representation of ghost movement based on randomized direction of instance.
+     */
+    private void moveGhosts() {
+    	
+    	for (Ghost ghost : pacMemeGame.getGhosts()) {
+        	if (ghost.getRandomDirection() == 1) {
+                ghost.setSpeed(-1, 0);
+        		ghost.setValidMove(true);
+        	} else if (ghost.getRandomDirection() == 2) {
+        		ghost.setSpeed(1, 0);
+        		ghost.setValidMove(true);
+        	} else if (ghost.getRandomDirection() == 3) {
+        		ghost.setSpeed(0, -1);
+        		ghost.setValidMove(true);
+        	} else if (ghost.getRandomDirection() == 4) {
+        		ghost.setSpeed(0, 1);
+        		ghost.setValidMove(true);
+        	} else {
+        		ghost.setSpeed(0, 0);
+        		ghost.setValidMove(true);
+        	}
+            ghost.moveActor();
+    	}
+    }
+    
 
     /**
      * Keyboard adapter class to help process what is typed on the keyboard.

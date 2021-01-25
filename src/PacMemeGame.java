@@ -67,7 +67,7 @@ public class PacMemeGame {
         initVariables();
         createBoard();
     }
-
+    
     /**
      * Sets all of the variables we will be using during the game.
      */
@@ -78,24 +78,21 @@ public class PacMemeGame {
         gameBoard = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 4, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 4, 0},
-                {0, 1, 0, 1, 0, 5, 1, 0, 1, 5, 0, 1, 0, 1, 0},
+                {0, 1, 0, 1, 0, 3, 1, 0, 1, 3, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0},
                 {0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0},
                 {0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0},
-                {0, 1, 1, 1, 1, 0, 0, 3, 0, 0, 1, 1, 1, 1, 0},
-                {0, 1, 0, 0, 5, 0, 3, 3, 3, 0, 5, 0, 0, 1, 0},
-                {0, 1, 0, 1, 1, 0, 0, 3, 0, 0, 1, 1, 0, 1, 0},
+                {0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0},
+                {0, 1, 0, 0, 3, 5, 5, 5, 5, 5, 3, 0, 0, 1, 0},
+                {0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0},
                 {0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
                 {0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 5, 1, 1, 0, 1, 0, 1, 1, 5, 0, 1, 0},
+                {0, 1, 0, 3, 1, 1, 0, 1, 0, 1, 1, 3, 0, 1, 0},
                 {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},
                 {0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
     }
-
-
-
+    
     /**
      * Sets the location of each object that will be on the board
      */
@@ -112,99 +109,49 @@ public class PacMemeGame {
                 } else if (position == 2) {
                     memeMan = new MemeMan(column * 50 + 5, row * 50 + 5);
                 } else if (position == 3) {
-                    ghosts.add(new Ghost(column * 50, row * 50));
+                    fruits.add(new Fruit(column * 50, row * 50));
                 } else if (position == 4) {
                     powerUps.add(new PowerUp(column * 50, row * 50));
                 } else if (position == 5) {
-                    fruits.add(new Fruit(column * 50, row * 50));
+                	Ghost ghost = new Ghost(column * 50 + 5, row * 50 + 5);
+                	ghosts.add(ghost);
+                	
+                	// store starting coordinates of ghosts for respawn purposes
+                	ghost.setStartingX(ghost.getX());
+                	ghost.setStartingY(ghost.getY());
                 }
             }
         }
     }
 
     /**
-     * Does all of the collision detection for the game. Determines if Meme-Man should
-     * stop moving due to being in front of a wall. If dots, power-ups, fruit, or ghost
-     * have been captured, removes them and increments score if so.
+     * Does all of the collision detection for the game. Determines if Meme-Man or the ghosts
+     * should stop moving or change direction due to being in front of a wall. If dots, power-ups,
+     * fruit, or ghost have been captured, removes them and increments score.
      */
-    public void collisionDetections() {
+    public void performCollisionDetections() {
+    	
+    	// checks memeMan collision
+        checkCollisionMemeMan();
+        
+    	// checks ghosts collision
+	    for (Ghost ghost : ghosts) {
+	    	checkWallsCollision(ghost);
+    		if (ghost.getValidMove() == false) {
+    			ghost.setRandomDirection();
+    		}
+	    } 
+    }   
+
+    /**
+     * Checks all collision relevant to the Meme-Man actor (walls, dots, powerUps, ghosts, fruit)
+     */
+    public void checkCollisionMemeMan() {
+    	
+        // checks the walls
         Rectangle r1 = memeMan.getBounds();
-
-        //checks the walls
-        for (Wall wall : walls) {
-            Rectangle r2 = wall.getBounds();
-            if (memeMan.getDirection().equals("left")) {
-                double memeX = r1.getMinX();
-                double wallX = r2.getMaxX();
-
-                if (wall.getX() < memeMan.getX()) {
-                    boolean topCornerCrossed = (wall.getY() + 50 > memeMan.getY() &&
-                            memeMan.getY() >= wall.getY());
-
-                    boolean bottomCornerCrossed = (wall.getY() + 50 > memeMan.getY() + 40 &&
-                            memeMan.getY() + 40 >= wall.getY());
-
-                    if (topCornerCrossed || bottomCornerCrossed) {
-                        if ((memeX - 1.0) <= wallX) {
-                            memeMan.setValidMove(false);
-                        }
-                    }
-                }
-            } else if (memeMan.getDirection().equals("right")) {
-                double topRightMemeCorner = r1.getMaxX();
-                double wallX = r2.getMinX();
-
-                if (wall.getX() > memeMan.getX()) {
-                    boolean topCornerCrossed = (wall.getY() + 50 > memeMan.getY() &&
-                            memeMan.getY() >= wall.getY());
-
-                    boolean bottomCornerCrossed = (wall.getY() + 50 > memeMan.getY() + 40 &&
-                            memeMan.getY() + 40 >= wall.getY());
-
-                    if (topCornerCrossed || bottomCornerCrossed) {
-                        if ((topRightMemeCorner + 1.0) >= wallX) {
-                            memeMan.setValidMove(false);
-                        }
-                    }
-                }
-            } else if (memeMan.getDirection().equals("up")) {
-                double memeY = r1.getMinY();
-                double wallY = r2.getMaxY();
-
-                if (wall.getY() < memeMan.getY()) {
-                    boolean leftCornerCrossed = (wall.getX() + 50 > memeMan.getX() &&
-                            memeMan.getX() >= wall.getX());
-
-                    boolean rightCornerCrossed = (wall.getX() + 50 > memeMan.getX() + 40 &&
-                            memeMan.getX() + 40 >= wall.getX());
-
-                    if (leftCornerCrossed || rightCornerCrossed) {
-                        if ((memeY - 1.0) <= wallY) {
-                            memeMan.setValidMove(false);
-                        }
-                    }
-                }
-            } else {
-                double memeY = r1.getMaxY();
-                double wallY = r2.getMinY();
-
-                if (wall.getY() > memeMan.getY()) {
-                    boolean leftCornerCrossed = (wall.getX() + 50 > memeMan.getX() &&
-                            memeMan.getX() >= wall.getX());
-
-                    boolean rightCornerCrossed = (wall.getX() + 50 > memeMan.getX() + 40 &&
-                            memeMan.getX() + 40 >= wall.getX());
-
-                    if (leftCornerCrossed || rightCornerCrossed) {
-                        if ((memeY +1.0) >= wallY) {
-                            memeMan.setValidMove(false);
-                        }
-                    }
-                }
-            }
-        }
-
-
+    	checkWallsCollision(memeMan);
+    	
         // checks the dots
         for (Dot dot : dots) {
             if (dot.isVisible()) {
@@ -243,11 +190,8 @@ public class PacMemeGame {
                     } else {
                         memeMan.setDead(true);
                     }
-
-
                 }
             }
-
         }
 
         // checks the fruit
@@ -260,8 +204,90 @@ public class PacMemeGame {
                 }
             }
         }
-    }
+    }  
+    
+    /**
+     * Checks collision status of actor relative to walls.
+     * @param Actor the actor to be collision checked against walls.
+     */
+    public void checkWallsCollision(Actor a1) {
+    	
+    	Rectangle r1 = a1.getBounds();
+    	
+        // checks the walls
+        for (Wall wall : walls) {
+            Rectangle r2 = wall.getBounds();
+            if (a1.getDirection().equals("left")) {
+                double memeX = r1.getMinX();
+                double wallX = r2.getMaxX();
 
+                if (wall.getX() < a1.getX()) {
+                    boolean topCornerCrossed = (wall.getY() + 50 > a1.getY() &&
+                    		a1.getY() >= wall.getY());
+
+                    boolean bottomCornerCrossed = (wall.getY() + 50 > a1.getY() + 40 &&
+                    		a1.getY() + 40 >= wall.getY());
+
+                    if (topCornerCrossed || bottomCornerCrossed) {
+                        if ((memeX - 1.0) <= wallX) {
+                        	a1.setValidMove(false);
+                        }
+                    }
+                }
+            } else if (a1.getDirection().equals("right")) {
+                double topRightMemeCorner = r1.getMaxX();
+                double wallX = r2.getMinX();
+
+                if (wall.getX() > a1.getX()) {
+                    boolean topCornerCrossed = (wall.getY() + 50 > a1.getY() &&
+                    		a1.getY() >= wall.getY());
+
+                    boolean bottomCornerCrossed = (wall.getY() + 50 > a1.getY() + 40 &&
+                    		a1.getY() + 40 >= wall.getY());
+
+                    if (topCornerCrossed || bottomCornerCrossed) {
+                        if ((topRightMemeCorner + 1.0) >= wallX) {
+                        	a1.setValidMove(false);
+                        }
+                    }
+                }
+            } else if (a1.getDirection().equals("up")) {
+                double memeY = r1.getMinY();
+                double wallY = r2.getMaxY();
+
+                if (wall.getY() < a1.getY()) {
+                    boolean leftCornerCrossed = (wall.getX() + 50 > a1.getX() &&
+                    		a1.getX() >= wall.getX());
+
+                    boolean rightCornerCrossed = (wall.getX() + 50 > a1.getX() + 40 &&
+                    		a1.getX() + 40 >= wall.getX());
+
+                    if (leftCornerCrossed || rightCornerCrossed) {
+                        if ((memeY - 1.0) <= wallY) {
+                        	a1.setValidMove(false);
+                        }
+                    }
+                }
+            } else {
+                double memeY = r1.getMaxY();
+                double wallY = r2.getMinY();
+
+                if (wall.getY() > a1.getY()) {
+                    boolean leftCornerCrossed = (wall.getX() + 50 > a1.getX() &&
+                    		a1.getX() >= wall.getX());
+
+                    boolean rightCornerCrossed = (wall.getX() + 50 > a1.getX() + 40 &&
+                    		a1.getX() + 40 >= wall.getX());
+
+                    if (leftCornerCrossed || rightCornerCrossed) {
+                        if ((memeY +1.0) >= wallY) {
+                        	a1.setValidMove(false);
+                        }
+                    }
+                }
+            }
+        }	
+    }
 
     /**
      * Getter method for getting the memeMan object.
@@ -318,9 +344,9 @@ public class PacMemeGame {
     }
 
     /**
-     * Getter method for getting the ArrayList of Dot objects.
+     * Getter method for getting the ArrayList of Ghost objects.
      *
-     * @return dots The dots.
+     * @return ghost The ghost objects.
      */
     public ArrayList<Ghost> getGhosts() {
         return ghosts;

@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -137,7 +136,7 @@ public abstract class Actor {
     }
 
     /**
-     * Getter for getting teh visibility on the actor.
+     * Getter for getting the visibility on the actor.
      *
      * @return isVisible If the actor is visible.
      */
@@ -165,10 +164,20 @@ public abstract class Actor {
         this.speedY = speedY;
     }
 
+    
+    /**
+     * Getter for getting if the move is valid for the actor.
+     *
+     * @return isValidMove if the move is valid
+     */
+    public boolean getValidMove() {
+        return isValidMove;
+    }
+    
     /**
      * Setter for setting if the move is valid for the actor.
      *
-     * @param isValidMove If the move is valid.
+     * @param isValidMove if the move is valid.
      */
     public void setValidMove(boolean isValidMove) {
         this.isValidMove = isValidMove;

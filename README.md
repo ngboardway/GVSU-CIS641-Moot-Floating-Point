@@ -22,6 +22,8 @@ The player's goal when playing Pac-Meme is to gather all of the collectables (do
 
 ## Gallery
 
+A video of the game being played [can be found here.](https://youtu.be/SjDHLgxTOyA)
+
 <p float="left">
   <img src="/images/demo/PacMeme1.PNG?raw=true" width="49%">
   <img src="/images/demo/PacMeme2.PNG?raw=true" width="49%">
